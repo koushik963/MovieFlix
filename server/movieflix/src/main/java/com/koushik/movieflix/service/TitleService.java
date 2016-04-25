@@ -17,4 +17,6 @@ public interface TitleService {
     void delete(Title title);
 
     void update(Title title);
+    
+     void addTitle(Title title);
 }

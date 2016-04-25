@@ -80,8 +80,7 @@ public class Title implements Serializable {
     @Column(name = "Type")
     private String type;
     @Column(name = "year")
-    @Temporal(TemporalType.DATE)
-    private Date year;
+    private int year;
     @Column(name = "released")
     @Temporal(TemporalType.DATE)
     private Date released;

@@ -47,4 +47,8 @@ public class TitleServiceImpl implements TitleService {
         titleRepositry.edit(title);
     }
 
+    @Override
+    public void addTitle(Title title) {
+        titleRepositry.create(title);
+    }
 }

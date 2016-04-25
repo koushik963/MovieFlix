@@ -37,7 +37,7 @@ import lombok.NoArgsConstructor;
     @NamedQuery(name = "UserRating.findByRating", query = "SELECT u FROM UserRating u WHERE u.rating = :rating"),
     @NamedQuery(name = "UserRating.findByComment", query = "SELECT u FROM UserRating u WHERE u.comment = :comment")})
 public class UserRating implements Serializable {
-    private static final long serialVersionUID = 1L;
+     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UserRatingPK userRatingPK;
     @Column(name = "rating")
@@ -58,5 +58,4 @@ public class UserRating implements Serializable {
     public UserRating(int userId, int titleId) {
         this.userRatingPK = new UserRatingPK(userId, titleId);
     }
-    
 }

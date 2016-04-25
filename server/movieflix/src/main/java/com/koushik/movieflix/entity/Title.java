@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.koushik.movieflix.entity;
 
 import java.io.Serializable;
@@ -13,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +23,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import lombok.Data;
 
 /**
@@ -56,6 +55,7 @@ import lombok.Data;
     @NamedQuery(name = "Title.findByTitle", query = "SELECT t FROM Title t WHERE t.title = :title"),
     @NamedQuery(name = "Title.findByRated", query = "SELECT t FROM Title t WHERE t.rated = :rated")})
 public class Title implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -103,7 +103,7 @@ public class Title implements Serializable {
     private String title;
     @Column(name = "rated")
     private String rated;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "title")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "title", fetch = FetchType.EAGER)
     private Collection<UserRating> userRatingCollection;
 
     public Title() {
@@ -119,5 +119,5 @@ public class Title implements Serializable {
         this.awards = awards;
         this.imdbvotes = imdbvotes;
     }
-  
+
 }

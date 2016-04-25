@@ -62,7 +62,7 @@ public class JPAConfig {
 	private Properties jpaProperties () {
 		Properties props = new Properties();
 		props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-		props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl"));
+		//props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl"));
 		props.put("hibernate.show_sql", env.getProperty("hibernate.show.sql"));
 		props.put("hibernate.format_sql", env.getProperty("hibernate.format.sql"));
 		return props;

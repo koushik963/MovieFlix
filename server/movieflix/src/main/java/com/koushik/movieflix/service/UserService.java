@@ -6,9 +6,8 @@
 package com.koushik.movieflix.service;
 
 import com.koushik.movieflix.entity.User;
+import com.koushik.movieflix.entity.UserRating;
 import com.koushik.movieflix.exception.UserAlreadyExistsException;
-import com.koushik.movieflix.exception.UserNotFoundException;
-import java.util.List;
 
 /**
  *
@@ -16,13 +15,11 @@ import java.util.List;
  */
 public interface UserService {
 
-    public List<User> findAll();
+    public User login(User user);
 
-    public User findOne(String id) throws UserNotFoundException;
+    public void signup(User user) throws UserAlreadyExistsException;
 
-    public User create(User user) throws UserAlreadyExistsException;
+    public boolean isUserExist(User user);
 
-    public User update(String id, User user) throws UserNotFoundException;
-
-    public void delete(String id) throws UserNotFoundException;
+    public void rate(UserRating rating);
 }

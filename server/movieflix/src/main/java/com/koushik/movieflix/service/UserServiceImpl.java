@@ -6,10 +6,12 @@
 package com.koushik.movieflix.service;
 
 import com.koushik.movieflix.entity.User;
+import com.koushik.movieflix.entity.UserRating;
 import com.koushik.movieflix.exception.UserAlreadyExistsException;
-import com.koushik.movieflix.exception.UserNotFoundException;
+import com.koushik.movieflix.repositry.UserRatingRepositry;
 import com.koushik.movieflix.repositry.UserRepository;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,50 +22,39 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository repository;
+    UserRepository userRepository;
+
+    @Autowired
+    UserRatingRepositry userRatingRepository;
 
     @Override
-    public List<User> findAll() {
-        return repository.findAll();
+    public User login(User user) {
+        return userRepository.findByEmail(user);
     }
 
     @Override
-    public User findOne(String id) throws UserNotFoundException {
-        User user = repository.findOne(id);
-        if (user == null) {
-            throw new UserNotFoundException();
-        }
-        return user;
+    public void signup(User user) throws UserAlreadyExistsException {
+        userRepository.create(user);
     }
 
     @Override
-    public User create(User user) throws UserAlreadyExistsException {
-        User existing = repository.findByEmail(user.getEmail());
-        if (existing != null) {
-            throw new UserAlreadyExistsException();
-        }
-        return repository.create(user);
+    public boolean isUserExist(User user) {
+
+        User checkUserExit = userRepository.findByEmail(user);
+        return checkUserExit != null;
     }
 
     @Override
-    public User update(String id, User user) throws UserNotFoundException {
-        User existing = repository.findOne(id);
-        if (existing == null) {
-            throw new UserNotFoundException();
+    public void rate(UserRating rating) {
+        try {
+            userRatingRepository.create(rating);
+        } catch (Exception ex) {
+            Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return repository.update(user);
-    }
 
-    @Override
-    public void delete(String id) throws UserNotFoundException {
-        User existing = repository.findOne(id);
-        if (existing == null) {
-            throw new UserNotFoundException();
-        }
-        repository.delete(existing);
     }
 
 }

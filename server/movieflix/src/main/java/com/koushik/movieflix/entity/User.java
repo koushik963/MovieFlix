@@ -20,7 +20,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import lombok.Data;
 
 /**
@@ -58,7 +57,7 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "enables")
     private boolean enables;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch=FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Collection<UserRating> userRatingCollection;
 
     public User() {

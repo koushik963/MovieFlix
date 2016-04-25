@@ -24,7 +24,7 @@ public interface UserRepository {
 
     public User findUser(Integer id);
 
-    public User findByEmail(User user);
+    public User findByEmail(String email);
 
     public void create(User user);
 

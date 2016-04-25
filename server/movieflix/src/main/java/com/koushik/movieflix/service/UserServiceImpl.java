@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(User user) {
-        return userRepository.findByEmail(user);
+        return userRepository.findByEmail(user.getEmail());
     }
 
     @Override
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUserExist(User user) {
 
-        User checkUserExit = userRepository.findByEmail(user);
+        User checkUserExit = userRepository.findByEmail(user.getEmail());
         return checkUserExit != null;
     }
 

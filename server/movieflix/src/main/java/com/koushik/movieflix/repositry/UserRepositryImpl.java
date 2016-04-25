@@ -201,9 +201,9 @@ public class UserRepositryImpl implements UserRepository {
     }
 
     @Override
-    public User findByEmail(User user) {
+    public User findByEmail(String email) {
         EntityManager em = getEntityManager();
-        List<User> users = em.createNamedQuery("User.findByEmail", User.class).setParameter("email", user.getEmail()).getResultList();
+        List<User> users = em.createNamedQuery("User.findByEmail", User.class).setParameter("email", email).getResultList();
 
         if (!users.isEmpty()) {
             return users.get(0);

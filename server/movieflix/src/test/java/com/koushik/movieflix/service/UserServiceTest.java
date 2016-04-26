@@ -83,7 +83,7 @@ public class UserServiceTest {
 
     @Test
     public void testIsUserExist(){
-        Mockito.when(userRepository.findByEmail(user)).thenReturn(user);
+        Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(user);
         boolean actual =  service.isUserExist(user);
         Assert.assertEquals(true, actual);
     }

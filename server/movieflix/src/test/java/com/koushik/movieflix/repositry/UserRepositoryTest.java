@@ -109,7 +109,7 @@ public class UserRepositoryTest {
   //    Mockito.when(em.createNamedQuery("User.findByEmail", User.class).setParameter("email", user.getEmail()).getResultList()).thenReturn(expected);
         
     
-        User actual = repo.findByEmail(user);
+        User actual = repo.findByEmail(user.getEmail());
         Assert.assertEquals(expected.get(0), actual);
     }
     
@@ -119,7 +119,7 @@ public class UserRepositoryTest {
         System.out.println("************ null********** "+user.getEmail());
         Mockito.when(em.createNamedQuery("User.findByEmail", User.class).setParameter("email", user.getEmail()).getResultList()).thenReturn(null);
         
-        User actual = repo.findByEmail(user);
+        User actual = repo.findByEmail(user.getEmail());
         Assert.assertEquals(null, actual);
     }
 }

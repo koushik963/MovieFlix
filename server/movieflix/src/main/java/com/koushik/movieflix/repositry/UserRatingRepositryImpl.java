@@ -24,7 +24,6 @@ import org.springframework.stereotype.Repository;
  *
  * @author koushik
  */
-
 @Repository
 public class UserRatingRepositryImpl implements UserRatingRepositry {
 
@@ -56,14 +55,6 @@ public class UserRatingRepositryImpl implements UserRatingRepositry {
                 userRating.setTitle(title);
             }
             em.persist(userRating);
-            if (user != null) {
-                user.getUserRatingCollection().add(userRating);
-                user = em.merge(user);
-            }
-            if (title != null) {
-                title.getUserRatingCollection().add(userRating);
-                title = em.merge(title);
-            }
         } catch (Exception ex) {
             if (findUserRating(userRating.getUserRatingPK()) != null) {
                 throw new PreexistingEntityException("UserRating " + userRating + " already exists.", ex);

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.koushik.movieflix.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -16,8 +16,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
@@ -37,7 +39,8 @@ import lombok.NoArgsConstructor;
     @NamedQuery(name = "UserRating.findByRating", query = "SELECT u FROM UserRating u WHERE u.rating = :rating"),
     @NamedQuery(name = "UserRating.findByComment", query = "SELECT u FROM UserRating u WHERE u.comment = :comment")})
 public class UserRating implements Serializable {
-     private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UserRatingPK userRatingPK;
     @Column(name = "rating")
@@ -46,9 +49,11 @@ public class UserRating implements Serializable {
     private String comment;
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
+    @Getter(AccessLevel.NONE)
     private User user;
     @JoinColumn(name = "title_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
+    @Getter(AccessLevel.NONE)
     private Title title;
 
     public UserRating(UserRatingPK userRatingPK) {
@@ -57,5 +62,16 @@ public class UserRating implements Serializable {
 
     public UserRating(int userId, int titleId) {
         this.userRatingPK = new UserRatingPK(userId, titleId);
+    }
+    
+    
+    @JsonIgnore
+    public User getUser() {
+        return user;
+    }
+
+    @JsonIgnore
+    public Title getTitle() {
+        return title;
     }
 }

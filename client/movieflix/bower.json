@@ -1,0 +1,11 @@
+{
+  "name": "movieflix",
+  "description": "UI Module",
+  "main": "index.js",
+  "authors": [
+    "koushik.r3@gmail.com"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true
+}

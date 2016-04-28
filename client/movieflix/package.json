@@ -1,0 +1,11 @@
+{
+  "name": "movieflix",
+  "version": "1.0.0",
+  "description": "UI Module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "koushik.r3@gmail.com",
+  "license": "MIT"
+}

@@ -27,21 +27,15 @@ import org.springframework.stereotype.Repository;
 public class TitleRepositryImpl implements TitleRepositry {
 
     @PersistenceContext
-    private EntityManager entityManager;
-
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
+    private EntityManager em;
 
     @Override
     public void create(Title title) {
         if (title.getUserRatingCollection() == null) {
             title.setUserRatingCollection(new ArrayList<UserRating>());
         }
-        EntityManager em = null;
         try {
-            em = getEntityManager();
-            Collection<UserRating> attachedUserRatingCollection = new ArrayList<UserRating>();
+            Collection<UserRating> attachedUserRatingCollection = new ArrayList<>();
             for (UserRating userRatingCollectionUserRatingToAttach : title.getUserRatingCollection()) {
                 userRatingCollectionUserRatingToAttach = em.getReference(userRatingCollectionUserRatingToAttach.getClass(), userRatingCollectionUserRatingToAttach.getUserRatingPK());
                 attachedUserRatingCollection.add(userRatingCollectionUserRatingToAttach);
@@ -54,38 +48,34 @@ public class TitleRepositryImpl implements TitleRepositry {
                 userRatingCollectionUserRating = em.merge(userRatingCollectionUserRating);
                 if (oldTitleOfUserRatingCollectionUserRating != null) {
                     oldTitleOfUserRatingCollectionUserRating.getUserRatingCollection().remove(userRatingCollectionUserRating);
-                    oldTitleOfUserRatingCollectionUserRating = em.merge(oldTitleOfUserRatingCollectionUserRating);
+                    em.merge(oldTitleOfUserRatingCollectionUserRating);
                 }
             }
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+        } catch (Exception e) {
+            System.out.println("Error Creating a title " + e.getMessage());
         }
     }
 
     @Override
     public void edit(Title title) {
-        EntityManager em = null;
+
         try {
-            em = getEntityManager();
+
             Title persistentTitle = em.find(Title.class, title.getId());
             Collection<UserRating> userRatingCollection = persistentTitle.getUserRatingCollection();
             title.setUserRatingCollection(userRatingCollection);
-            title = em.merge(title);
+            em.merge(title);
 
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+        } catch (Exception e) {
+            System.out.println("Error Editing a title " + e.getMessage());
         }
     }
 
     @Override
     public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
-        EntityManager em = null;
+
         try {
-            em = getEntityManager();
+
             Title title;
             try {
                 title = em.getReference(Title.class, id);
@@ -97,7 +87,7 @@ public class TitleRepositryImpl implements TitleRepositry {
             Collection<UserRating> userRatingCollectionOrphanCheck = title.getUserRatingCollection();
             for (UserRating userRatingCollectionOrphanCheckUserRating : userRatingCollectionOrphanCheck) {
                 if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
+                    illegalOrphanMessages = new ArrayList<>();
                 }
                 illegalOrphanMessages.add("This Title (" + title + ") cannot be destroyed since the UserRating " + userRatingCollectionOrphanCheckUserRating + " in its userRatingCollection field has a non-nullable title field.");
             }
@@ -105,10 +95,8 @@ public class TitleRepositryImpl implements TitleRepositry {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(title);
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+        } catch (NonexistentEntityException | IllegalOrphanException e) {
+            System.out.println("Error Deleting a title " + e.getMessage());
         }
     }
 
@@ -124,7 +112,7 @@ public class TitleRepositryImpl implements TitleRepositry {
 
     @Override
     public List<Title> findTitleEntities(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
+
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Title.class));
@@ -134,14 +122,14 @@ public class TitleRepositryImpl implements TitleRepositry {
                 q.setFirstResult(firstResult);
             }
             return q.getResultList();
-        } finally {
-            em.close();
+        } catch (Exception e) {
+            System.out.println("Error Finding a title " + e.getMessage());
         }
+        return null;
     }
 
     @Override
     public Title findTitle(Integer id) {
-        EntityManager em = getEntityManager();
         try {
             return em.find(Title.class, id);
         } finally {
@@ -150,16 +138,16 @@ public class TitleRepositryImpl implements TitleRepositry {
     }
 
     public int getTitleCount() {
-        EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             Root<Title> rt = cq.from(Title.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
+        } catch (Exception e) {
+            System.out.println("Error in getting the Title count a title " + e.getMessage());
         }
+        return -999;
     }
 
 }

@@ -11,6 +11,7 @@ import com.koushik.movieflix.entity.UserRating;
 import com.koushik.movieflix.service.TitleService;
 import com.koushik.movieflix.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +31,7 @@ public class RatingController {
     @Autowired
     TitleService titleService;
 
-    @RequestMapping(value = "/rating/{user}/{title}/{rate}/{comment}", method = RequestMethod.POST)
+    @RequestMapping(value = "/rating/{user}/{title}/{rate}/{comment}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void rateAndComment(@PathVariable("rate") short rate, @PathVariable("user") int userId, @PathVariable("comment") String comment, @PathVariable("title") int titleId, UriComponentsBuilder ucBuilder) {
 
         System.out.println("user with id: " + userId + " has just rated title with id: " + titleId + " with rate: " + rate + " and commented: " + comment);

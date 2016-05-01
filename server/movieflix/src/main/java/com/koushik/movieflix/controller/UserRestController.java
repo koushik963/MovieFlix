@@ -38,7 +38,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 
 @RestController
- @RequestMapping(value = "/users/")
+ @RequestMapping(value = "/users")
 public class UserRestController {
     @Autowired
     UserService userService;
@@ -47,19 +47,15 @@ public class UserRestController {
     TitleService titleServiceImpl;
 
     @RequestMapping(value = "/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUser(@PathVariable("email") String email) {
+    public User getUser(@PathVariable("email") String email) {
         System.out.println("Fetching User with id " + email);
         User user = new User();
         user.setEmail(email);
         User user1 = userService.login(user);
-        if (user1 == null) {
-            System.out.println("User with id " + email + " not found");
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<User>(user1, HttpStatus.OK);
+       return user1;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
         System.out.println("Creating User " + user.getEmail());
 

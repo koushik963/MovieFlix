@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -58,47 +57,28 @@ public class Title implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "country")
     private String country;
     @Basic(optional = false)
-    @Column(name = "awards")
     private String awards;
-    @Column(name = "poster")
     private String poster;
     @Basic(optional = false)
-    @Column(name = "imdbvotes")
     private long imdbvotes;
-    @Column(name = "imdbrating")
     private Float imdbrating;
-    @Column(name = "imdbId")
     private String imdbId;
-    @Column(name = "Type")
     private String type;
-    @Column(name = "year")
     private int year;
-    @Column(name = "released")
     @Temporal(TemporalType.DATE)
     private Date released;
-    @Column(name = "runtime")
     private Integer runtime;
-    @Column(name = "genre")
     private String genre;
-    @Column(name = "director")
     private String director;
-    @Column(name = "writer")
     private String writer;
-    @Column(name = "actors")
     private String actors;
-    @Column(name = "plot")
     private String plot;
-    @Column(name = "language")
     private String language;
-    @Column(name = "title")
     private String title;
-    @Column(name = "rated")
     private String rated;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "title", fetch = FetchType.EAGER)
     private Collection<UserRating> userRatingCollection;

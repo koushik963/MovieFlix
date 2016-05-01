@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.koushik.movieflix.repositry.TitleRepositry;
-import com.koushik.movieflix.repositry.UserRatingRepositry;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -28,7 +27,7 @@ public class TitleServiceImpl implements TitleService {
     public List<Title> retrieveAllTitles() {
         return titleRepositry.findTitleEntities();
     }
-
+    
     @Override
     public Title retrieveTitle(Title title) {
         return titleRepositry.findTitle(title.getId());

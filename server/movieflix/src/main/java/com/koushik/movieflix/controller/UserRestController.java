@@ -38,7 +38,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 
 @RestController
-@EnableWebMvc
+ @RequestMapping(value = "/users/")
 public class UserRestController {
     @Autowired
     UserService userService;
@@ -46,7 +46,7 @@ public class UserRestController {
     @Autowired
     TitleService titleServiceImpl;
 
-    @RequestMapping(value = "/user/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getUser(@PathVariable("email") String email) {
         System.out.println("Fetching User with id " + email);
         User user = new User();
@@ -59,7 +59,7 @@ public class UserRestController {
         return new ResponseEntity<User>(user1, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/user/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
         System.out.println("Creating User " + user.getEmail());
 
@@ -78,41 +78,6 @@ public class UserRestController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value = "/title", method = RequestMethod.GET)
-    public ResponseEntity<List<Title>> listAllTitles() {
-        List<Title> titles = titleServiceImpl.retrieveAllTitles();
-        if (titles.isEmpty()) {
-            return new ResponseEntity<List<Title>>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<List<Title>>(titles, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/title/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Title> getTitle(@PathVariable("id") int id) {
-        System.out.println("Fetching Title with id " + id);
-        Title title = new Title(id);
-        Title retrievedTitle = titleServiceImpl.retrieveTitle(title);
-        if (retrievedTitle == null) {
-            System.out.println("Title with id " + id + " not found");
-            return new ResponseEntity<Title>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<Title>(retrievedTitle, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/rating/{user}/{title}/{rate}/{comment}", method = RequestMethod.POST)
-    public ResponseEntity<Void> rateAndComment(@PathVariable("rate") short rate, @PathVariable("user") int userId, @PathVariable("comment") String comment, @PathVariable("title") int titleId, UriComponentsBuilder ucBuilder) {
-
-        System.out.println("user with id: " + userId + " has just rated title with id: " + titleId + " with rate: " + rate + " and commented: " + comment);
-        UserRating rating = new UserRating();
-        rating.setUser(new User(userId));
-        rating.setTitle(new Title(titleId));
-        rating.setComment(comment);
-        rating.setRating(rate);
-        userService.rate(rating);
-        HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
     

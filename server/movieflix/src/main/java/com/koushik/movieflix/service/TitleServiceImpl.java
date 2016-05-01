@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.koushik.movieflix.repositry.TitleRepositry;
+import com.koushik.movieflix.repositry.UserRatingRepositry;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -22,7 +23,7 @@ public class TitleServiceImpl implements TitleService {
 
     @Autowired
     TitleRepositry titleRepositry;
-
+           
     @Override
     public List<Title> retrieveAllTitles() {
         return titleRepositry.findTitleEntities();
@@ -34,9 +35,13 @@ public class TitleServiceImpl implements TitleService {
     }
 
     @Override
-    public void delete(Title title) {
+    public void delete(int id) {
         try {
-            titleRepositry.destroy(title.getId());
+            Title findTitle = titleRepositry.findTitle(id);
+            if (findTitle == null) {
+                System.out.println("Unable to delete. title with id " + id + " not found");
+            }
+            titleRepositry.destroy(id);
         } catch (IllegalOrphanException | NonexistentEntityException ex) {
             Logger.getLogger(TitleServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

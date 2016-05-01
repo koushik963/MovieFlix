@@ -14,7 +14,7 @@ public interface TitleService {
 
     Title retrieveTitle(Title title);
 
-    void delete(Title title);
+    void delete(int id);
 
     void update(Title title);
     

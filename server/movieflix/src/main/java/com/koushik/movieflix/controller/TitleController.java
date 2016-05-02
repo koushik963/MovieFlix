@@ -64,7 +64,7 @@ public class TitleController {
         titleToBeUpdated.setActors(title.getActors());
         titleToBeUpdated.setAwards(title.getAwards());
         titleToBeUpdated.setCountry(title.getCountry());
-        titleToBeUpdated.setDirector(title.getCountry());
+        titleToBeUpdated.setDirector(title.getDirector());
         titleToBeUpdated.setGenre(title.getGenre());
         titleToBeUpdated.setImdbId(title.getImdbId());
         titleToBeUpdated.setImdbrating(title.getImdbrating());

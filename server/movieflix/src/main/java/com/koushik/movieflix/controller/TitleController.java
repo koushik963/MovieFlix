@@ -84,7 +84,7 @@ public class TitleController {
         return titleToBeUpdated;
     }
 
-    @RequestMapping(value = "/admin/create", method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/admin/create/", method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
     public void createTitle(@RequestBody Title title, UriComponentsBuilder ucBuilder) throws TitleAlreadyExistsException {
         System.out.println("Creating titles " + title.getTitle());
         titleService.addTitle(title);

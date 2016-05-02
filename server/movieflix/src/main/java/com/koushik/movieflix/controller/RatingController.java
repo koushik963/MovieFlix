@@ -8,8 +8,7 @@ package com.koushik.movieflix.controller;
 import com.koushik.movieflix.entity.Title;
 import com.koushik.movieflix.entity.User;
 import com.koushik.movieflix.entity.UserRating;
-import com.koushik.movieflix.service.TitleService;
-import com.koushik.movieflix.service.UserService;
+import com.koushik.movieflix.service.UserRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,10 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class RatingController {
 
     @Autowired
-    UserService userService;
-
-    @Autowired
-    TitleService titleService;
+    UserRatingService userService;
 
     @RequestMapping(value = "/rating/{user}/{title}/{rate}/{comment}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void rateAndComment(@PathVariable("rate") short rate, @PathVariable("user") int userId, @PathVariable("comment") String comment, @PathVariable("title") int titleId, UriComponentsBuilder ucBuilder) {

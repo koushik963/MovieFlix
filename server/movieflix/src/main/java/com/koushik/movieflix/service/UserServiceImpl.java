@@ -8,6 +8,7 @@ package com.koushik.movieflix.service;
 import com.koushik.movieflix.entity.User;
 import com.koushik.movieflix.entity.UserRating;
 import com.koushik.movieflix.exception.UserAlreadyExistsException;
+import com.koushik.movieflix.exception.UserNotFoundException;
 import com.koushik.movieflix.repositry.UserRatingRepositry;
 import com.koushik.movieflix.repositry.UserRepository;
 import java.util.logging.Level;
@@ -31,12 +32,21 @@ public class UserServiceImpl implements UserService {
     UserRatingRepositry userRatingRepository;
 
     @Override
-    public User login(User user) {
+    public User login(User user) throws UserNotFoundException {
+        User persistedUser = userRepository.findByEmail(user.getEmail());
+        if (persistedUser == null) {
+            throw new UserNotFoundException();
+        }
         return userRepository.findByEmail(user.getEmail());
     }
 
     @Override
     public void signup(User user) throws UserAlreadyExistsException {
+
+        boolean userExist = isUserExist(user);
+        if (userExist) {
+            throw new UserAlreadyExistsException();
+        }
         userRepository.create(user);
     }
 
@@ -45,16 +55,6 @@ public class UserServiceImpl implements UserService {
 
         User checkUserExit = userRepository.findByEmail(user.getEmail());
         return checkUserExit != null;
-    }
-
-    @Override
-    public void rate(UserRating rating) {
-        try {
-            userRatingRepository.create(rating);
-        } catch (Exception ex) {
-            Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
 }

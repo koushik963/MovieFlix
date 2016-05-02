@@ -7,11 +7,8 @@ package com.koushik.movieflix.repositry;
 
 import com.koushik.movieflix.entity.Title;
 import com.koushik.movieflix.entity.UserRating;
-import com.koushik.movieflix.exception.IllegalOrphanException;
-import com.koushik.movieflix.exception.NonexistentEntityException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -58,56 +55,17 @@ public class TitleRepositryImpl implements TitleRepositry {
 
     @Override
     public void edit(Title title) {
-
-        try {
-
-            Title persistentTitle = em.find(Title.class, title.getId());
-            Collection<UserRating> userRatingCollection = persistentTitle.getUserRatingCollection();
-            title.setUserRatingCollection(userRatingCollection);
-            em.merge(title);
-
-        } catch (Exception e) {
-            System.out.println("Error Editing a title " + e.getMessage());
-        }
+        em.merge(title);
     }
 
     @Override
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
-
-        try {
-
-            Title title;
-            try {
-                title = em.getReference(Title.class, id);
-                title.getId();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The title with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            Collection<UserRating> userRatingCollectionOrphanCheck = title.getUserRatingCollection();
-            for (UserRating userRatingCollectionOrphanCheckUserRating : userRatingCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<>();
-                }
-                illegalOrphanMessages.add("This Title (" + title + ") cannot be destroyed since the UserRating " + userRatingCollectionOrphanCheckUserRating + " in its userRatingCollection field has a non-nullable title field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            em.remove(title);
-        } catch (NonexistentEntityException | IllegalOrphanException e) {
-            System.out.println("Error Deleting a title " + e.getMessage());
-        }
+    public void destroy(Title title) {
+        em.remove(title);
     }
 
     @Override
     public List<Title> findTitleEntities() {
         return findTitleEntities(true, -1, -1);
-    }
-
-    @Override
-    public List<Title> findTitleEntities(int maxResults, int firstResult) {
-        return findTitleEntities(false, maxResults, firstResult);
     }
 
     @Override
@@ -123,7 +81,7 @@ public class TitleRepositryImpl implements TitleRepositry {
             }
             return q.getResultList();
         } catch (Exception e) {
-            System.out.println("Error Finding a title " + e.getMessage());
+            System.out.println("Error Finding all titles " + e.getMessage());
         }
         return null;
     }
@@ -132,9 +90,10 @@ public class TitleRepositryImpl implements TitleRepositry {
     public Title findTitle(Integer id) {
         try {
             return em.find(Title.class, id);
-        } finally {
-            em.close();
+        } catch (Exception e) {
+            System.out.println("Error Finding a title " + e.getMessage());
         }
+        return null;
     }
 
     public int getTitleCount() {

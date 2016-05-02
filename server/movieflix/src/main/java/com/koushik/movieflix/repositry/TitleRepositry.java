@@ -6,8 +6,6 @@
 package com.koushik.movieflix.repositry;
 
 import com.koushik.movieflix.entity.Title;
-import com.koushik.movieflix.exception.IllegalOrphanException;
-import com.koushik.movieflix.exception.NonexistentEntityException;
 import java.util.List;
 
 /**
@@ -20,11 +18,9 @@ public interface TitleRepositry {
 
     public void edit(Title title);
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException;
+    public void destroy(Title title) ;
 
     public List<Title> findTitleEntities();
-
-    public List<Title> findTitleEntities(int maxResults, int firstResult);
 
     public List<Title> findTitleEntities(boolean all, int maxResults, int firstResult);
 

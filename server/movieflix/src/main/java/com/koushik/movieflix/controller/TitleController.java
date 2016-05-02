@@ -6,6 +6,9 @@
 package com.koushik.movieflix.controller;
 
 import com.koushik.movieflix.entity.Title;
+import com.koushik.movieflix.exception.IllegalOrphanException;
+import com.koushik.movieflix.exception.TitleAlreadyExistsException;
+import com.koushik.movieflix.exception.TitleNotFoundException;
 import com.koushik.movieflix.service.TitleService;
 import com.koushik.movieflix.service.UserService;
 import java.util.List;
@@ -33,26 +36,26 @@ public class TitleController {
     TitleService titleService;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Title> listAllTitles() {
+    public List<Title> listAllTitles() throws TitleNotFoundException {
         List<Title> titles = titleService.retrieveAllTitles();
         return titles;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Title getTitle(@PathVariable("id") int id) {
+    public Title getTitle(@PathVariable("id") int id) throws TitleNotFoundException {
         System.out.println("Fetching Title with id " + id);
         Title title = new Title(id);
         return titleService.retrieveTitle(title);
     }
 
     @RequestMapping(value = "/admin/delete/{titleId}", method = RequestMethod.DELETE)
-    public void deleteTitle(@PathVariable("titleId") int id) {
+    public void deleteTitle(@PathVariable("titleId") int id) throws TitleNotFoundException, IllegalOrphanException {
         System.out.println("Deleting Title with id " + id);
         titleService.delete(id);
     }
 
     @RequestMapping(value = "/admin/update/{id}", method = RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-    public Title updateUser(@PathVariable("id") int id, @RequestBody Title title) {
+    public Title updateUser(@PathVariable("id") int id, @RequestBody Title title) throws TitleNotFoundException {
         System.out.println("Updating title " + id);
 
         Title titleToBeUpdated = titleService.retrieveTitle(title);
@@ -82,7 +85,7 @@ public class TitleController {
     }
 
     @RequestMapping(value = "/admin/create", method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
-    public void createTitle(@RequestBody Title title, UriComponentsBuilder ucBuilder) {
+    public void createTitle(@RequestBody Title title, UriComponentsBuilder ucBuilder) throws TitleAlreadyExistsException {
         System.out.println("Creating titles " + title.getTitle());
         titleService.addTitle(title);
     }

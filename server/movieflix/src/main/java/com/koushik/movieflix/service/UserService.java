@@ -8,6 +8,7 @@ package com.koushik.movieflix.service;
 import com.koushik.movieflix.entity.User;
 import com.koushik.movieflix.entity.UserRating;
 import com.koushik.movieflix.exception.UserAlreadyExistsException;
+import com.koushik.movieflix.exception.UserNotFoundException;
 
 /**
  *
@@ -15,11 +16,10 @@ import com.koushik.movieflix.exception.UserAlreadyExistsException;
  */
 public interface UserService {
 
-    public User login(User user);
+    public User login(User user) throws UserNotFoundException;
 
     public void signup(User user) throws UserAlreadyExistsException;
 
     public boolean isUserExist(User user);
-
-    public void rate(UserRating rating);
+    
 }

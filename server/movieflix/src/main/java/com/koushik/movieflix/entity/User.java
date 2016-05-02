@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -41,20 +40,14 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "email")
     private String email;
     @Basic(optional = false)
-    @Column(name = "password")
     private String password;
-    @Column(name = "firstname")
     private String firstname;
-    @Column(name = "lastname")
     private String lastname;
     @Basic(optional = false)
-    @Column(name = "enables")
     private boolean enables;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Collection<UserRating> userRatingCollection;

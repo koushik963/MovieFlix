@@ -8,7 +8,6 @@ package com.koushik.movieflix.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -37,9 +36,7 @@ public class UserRating implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UserRatingPK userRatingPK;
-    @Column(name = "rating")
     private Short rating;
-    @Column(name = "comment")
     private String comment;
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)

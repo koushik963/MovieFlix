@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MovieFlix</title>
-</head>
-<body>
+<html ng-app="movieflix">
 
+<head>
+    <meta charset="utf-8"/>
+    <title>AngularJS Plunker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/home.css">
+
+</head>
+
+<body>
+<header>
+    <nav>
+        <ul class="nav nav-pills">
+            <li class="active"><a href="#/titles">Titles</a></li>
+            <li><a href="#/resources">Posts</a></li>
+        </ul>
+    </nav>
+</header>
+<section ng-view>
+
+
+</section>
+<footer>
+    &copy; Koushik, Inc.
+</footer>
+<script src="https://code.angularjs.org/1.4.9/angular.js" data-semver="1.4.9"></script>
+<script src="https://code.angularjs.org/1.4.9/angular-route.js"></script>
+<!--
+<script src="app.js"></script>
+<script src="controllers/title.controller.js"></script>
+-->
+<script src="app/app.js"></script>
+<script src="app/services/title.service.js"></script>
+<script src="app/controllers/title.controller.js"></script>
 </body>
+
 </html>

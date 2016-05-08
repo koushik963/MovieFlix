@@ -1,0 +1,132 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><span class="lead">Manage Titles</span></div>
+    <div class="formcontainer">
+        <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
+            <input type="hidden" ng-model="ctrl.user.id" />
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">Title</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.title" name="title" class="username form-control input-sm" placeholder="Enter movie title" required />
+                        <div class="has-error" ng-show="myForm.$dirty">
+                            <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">Country</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.country" class="form-control input-sm" placeholder="Enter Country." required/>
+                        <div class="has-error" ng-show="myForm.$dirty">
+                            <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">Awards</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.awards" class="form-control input-sm" placeholder="What awards this movie has?" required/>
+                        <div class="has-error" ng-show="myForm.$dirty">
+                            <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">IMDB Votes</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.imdbvotes" class="form-control input-sm" placeholder="How many votes this movie has?" required/>
+                        <div class="has-error" ng-show="myForm.$dirty">
+                            <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">IMDB Rating</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.imdbrating" class="form-control input-sm" placeholder="What is the IMDB rating for this movie"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">IMDB ID</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.imdbId" class="form-control input-sm" placeholder="What is the IMDB id for this movie"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">Type</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.type" class="form-control input-sm" placeholder="What is the type of the movie"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">Year</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.year" class="form-control input-sm" placeholder="The year of the movie"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">Genre</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.genre" class="form-control input-sm" placeholder="The movie genres"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">Director</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.director" class="form-control input-sm" placeholder="who is this movie director(s)?"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">Writer</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.writer" class="form-control input-sm" placeholder="who is this movie writer(s)?"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-2 control-lable" for="file">Actors</label>
+                    <div class="col-md-7">
+                        <input type="text" ng-model="ctrl.title.actors" class="form-control input-sm" placeholder="who is this movie actor(s)?"/>
+                    </div>
+                </div>
+            </div><div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-2 control-lable" for="file">Language</label>
+                <div class="col-md-7">
+                    <input type="text" ng-model="ctrl.title.language" class="form-control input-sm" placeholder="what is this movie language(s)?"/>
+                </div>
+            </div>
+        </div>
+
+            <div class="row">
+                <div class="form-actions floatRight">
+                    <input type="submit"  value="{{!ctrl.title.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
+                    <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset Form</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

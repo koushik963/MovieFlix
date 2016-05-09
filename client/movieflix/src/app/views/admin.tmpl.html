@@ -1,0 +1,201 @@
+<div class="container">
+    <hr>
+    <div class="row">
+        <div class="container">
+            <div class="panel-heading"><span class="lead">Manage Titles</span></div>
+            <div class="formcontainer">
+                <p name="top"></p>
+                <form ng-submit="titleVm.submit()" name="myForm" class="form-horizontal">
+                    <input type="hidden" ng-model="titleVm.user.id"/>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">Title</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.title" name="title"
+                                       class="username form-control input-sm" placeholder="Enter movie title" required/>
+                                <div class="has-error" ng-show="myForm.$dirty">
+                                    <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">Country</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.country" class="form-control input-sm"
+                                       placeholder="Enter Country." required/>
+                                <div class="has-error" ng-show="myForm.$dirty">
+                                    <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">Awards</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.awards" class="form-control input-sm"
+                                       placeholder="What awards this movie has?" required/>
+                                <div class="has-error" ng-show="myForm.$dirty">
+                                    <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">IMDB Votes</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.imdbvotes" class="form-control input-sm"
+                                       placeholder="How many votes this movie has?" required/>
+                                <div class="has-error" ng-show="myForm.$dirty">
+                                    <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">IMDB Rating</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.imdbrating" class="form-control input-sm"
+                                       placeholder="What is the IMDB rating for this movie"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">IMDB ID</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.imdbId" class="form-control input-sm"
+                                       placeholder="What is the IMDB id for this movie"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">Type</label>
+                            <div class="col-md-7">
+                                <select class="form-control" ng-model="titleVm.title.type">
+                                    <option>TV</option>
+                                    <option>Movie</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">Poster</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.poster" class="form-control input-sm"
+                                       placeholder="Image URL"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">Year</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.year" class="form-control input-sm"
+                                       placeholder="The year of the movie"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">Genre</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.genre" class="form-control input-sm"
+                                       placeholder="The movie genres"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">Director</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.director" class="form-control input-sm"
+                                       placeholder="who is this movie director(s)?"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">Writer</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.writer" class="form-control input-sm"
+                                       placeholder="who is this movie writer(s)?"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">Actors</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.actors" class="form-control input-sm"
+                                       placeholder="who is this movie actor(s)?"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable">Language</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="titleVm.title.language" class="form-control input-sm"
+                                       placeholder="what is this movie language(s)?"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-actions floatRight">
+                            <input type="submit" value="{{!titleVm.title.id ? 'Add' : 'Update'}}"
+                                   class="btn btn-primary btn-sm"
+                                   ng-disabled="myForm.$invalid">
+                            <button type="button" ng-click="titleVm.reset()" class="btn btn-warning btn-sm"
+                                    ng-disabled="myForm.$pristine">Reset Form
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="container">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading"><span class="lead">List of Titles</span></div>
+                <div class="tablecontainer">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <th>Title</th>
+                            <th>Director</th>
+                            <th>Genre</th>
+                            <th>Released</th>
+                            <th width="20%">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="t in titleVm.titles">
+                            <td><img id="image" ng-src="{{t.poster}}"/></td>
+                            <td><span ng-bind="t.title"></span></td>
+                            <td><span ng-bind="t.director"></span></td>
+                            <td><span ng-bind="t.genre"></span></td>
+                            <td><span ng-bind="t.released"></span></td>
+                            <td><i ng-click="titleVm.edit(t.id)" class="glyphicon glyphicon-pencil">Edit</i>
+                                <i ng-click="titleVm.remove(t.id)" class="glyphicon glyphicon-remove">Delete</i></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -12,8 +12,8 @@
         self.updateTitle = updateTitle;
         self.deleteTitle = deleteTitle;
 
-        function createTitle() {
-            return $http.post('/movieflix/admin/create/', title)
+        function createTitle(title) {
+            return $http.post('http://localhost:8080/movieflix/titles/admin/create/', title)
                 .then(successFn, errorFn);
         }
 
@@ -23,12 +23,12 @@
         }
 
         function updateTitle(title, id) {
-            return $http.post('/movieflix/admin/title/update/' + id, title)
+            return $http.post('http://localhost:8080/movieflix/titles/admin/update/' + id, title)
                 .then(successFn, errorFn);
         }
 
         function deleteTitle(id) {
-            return $http.post('/movieflix/admin/title/delete/' + id)
+            return $http.post('http://localhost:8080/movieflix/titles/admin/delete/' + id)
                 .then(successFn, errorFn);
         }
 

@@ -18,7 +18,8 @@
         }
 
         function fetchAllTitles() {
-            return $http.get('http://localhost:8080/movieflix/titles')
+            console.log('inside title service');
+            return $http.get('http://localhost:63342/movieflix/src/hello.json')
                 .then(successFn, errorFn);
         }
 

@@ -3,8 +3,8 @@
     angular.module('movieflix')
         .controller('titleController', titleController);
 
-    titleController.$inject = ['$scope', 'titleService','$location','$anchorScroll'];
-    function titleController($scope, titleService,$location,$anchorScroll) {
+    titleController.$inject = ['$scope', 'titleService','$window'];
+    function titleController($scope, titleService,$window) {
         var self = this;
 
         self.submit = submit;
@@ -67,7 +67,7 @@
 
         function edit(id) {
             console.log('id to be edited', id);
-            $location.hash('top');
+            $window.scrollTo(0,0);
             $anchorScroll();
             for (var i = 0; i < self.titles.length; i++) {
                 if (self.titles[i].id == id) {

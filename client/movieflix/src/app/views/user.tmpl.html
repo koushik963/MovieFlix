@@ -1,3 +1,26 @@
-<div id="shell" ng-repeat="t in homeVm.titles">
-    <title-directive person="t"></title-directive>
+<div class="container">
+    <div class="collapse navbar-collapse container">
+        <ul class="nav navbar-nav">
+            <li><a ng-click="homeVm.changeSort(0)">Year</a></li>
+            <li><a ng-click="homeVm.changeSort(1)">IMDB Votes</a></li>
+            <li><a ng-click="homeVm.changeSort(2)">IMDB Rating</a></li>
+        </ul>
+        <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+                <input type="text" ng-model="homeVm.searchString" class="form-control" placeholder="Search">
+            </div>
+        </form>
+    </div>
+    <div class="shell">
+
+        <div>
+            <div ng-repeat="t in homeVm.titles | limitTo:homeVm.itemsPerPage:(homeVm.currentPage - 1) * homeVm.itemsPerPage | filter:homeVm.searchString | orderBy: homeVm.sorter.by : homeVm.sorter.reverse ">
+                <title-directive person="t"></title-directive>
+            </div>
+            </div>
+        <uib-pagination boundary-links="true" total-items="homeVm.totalItems" items-per-page="homeVm.itemsPerPage"
+                        ng-model="homeVm.currentPage" class="pagination-md pagin" ng-change="homeVm.onPageChange()"previous-text="&lsaquo;"
+                        next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+    </div>
 </div>
+

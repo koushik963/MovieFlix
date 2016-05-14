@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 img1">
+            <img class=" img1" ng-src="{{singleTitleVm.selectedTitle.poster}}">
+        </div>
+        <div class="col-md-8 box1">
+            <h3>{{singleTitleVm.selectedTitle.title}}</h3>
+            <uib-rating ng-model="singleTitleVm.selectedTitle.imdbrating" max="10" data-readonly="true"
+                        on-hover="hoveringOver(value)"
+                        on-leave="overStar = null"
+                        aria-labelledby="default-rating"></uib-rating>
+            <p>IMDB Rating: {{singleTitleVm.selectedTitle.imdbrating}}</p>
+            <p>Director: {{singleTitleVm.selectedTitle.director}}</p>
+            <p>Actors: {{singleTitleVm.selectedTitle.actors}}</p>
+            <p>Plot: {{singleTitleVm.selectedTitle.plot}}</p>
+        </div>
+    </div>
+    <div class=" container ">
+        <textarea class="form-control custom-control" rows="3" style="resize:none"></textarea>
+        <button class="btn btn-primary pull-left form-control">Comment</button>
+        <div class="container" ng-repeat="comment in singleTitleVm.selectedTitle.userRatingCollection">
+            <div ng-if="singleTitleVm.selectedTitle.userRatingCollection.length <=0">
+                No Comments
+            </div>
+            <blockquote>
+                <p class="">{{comment.comment}}</p>
+            </blockquote>
+        </div>
+    </div>
+</div>

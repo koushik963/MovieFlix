@@ -1,12 +1,12 @@
 <div class="image">
-
-    <a href="#" class="thumbnail">
-        <p id="title">{{person.Title}}</p>
-        <img class="image" ng-src="{{person.Poster}}">
+    <a ng-href="#/user/{{person.id}}" class="thumbnail">
+        <p id="title">{{person.title}}</p>
+        <img class="image" ng-src="{{person.poster}}">
     </a>
-    <uib-rating ng-model="person.imdbRating" max="10" data-readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null"
+    <uib-rating ng-model="person.imdbrating" max="10" data-readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null"
     aria-labelledby="default-rating" ></uib-rating>
-    <p>Rating: {{person.imdbRating}}</p>
-    <p>Votes: {{person.imdbVotes}}</p>
-    <p>Year: {{person.Year}}</p>
+    <span class="glyphicon glyphicon-tag">{{person.getNoOfComments(person.id)}}</span>
+    <p>Rating: {{person.imdbrating}}</p>
+    <p>Votes: {{person.imdbvotes}}</p>
+    <p>Year: {{person.year}}</p>
 </div>

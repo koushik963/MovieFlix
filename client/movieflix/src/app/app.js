@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('movieflix', ['ngRoute','ngAnimate', 'ui.bootstrap'])
+    angular.module('movieflix', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
         .config(mainConfig);
 
     function mainConfig($routeProvider) {
@@ -23,6 +23,11 @@
                 templateUrl: 'app/views/user.tmpl.html',
                 controller: 'homeController',
                 controllerAs: 'homeVm'
+            })
+            .when('/user/:id', {
+                templateUrl: 'app/views/title-detail.tmpl.html',
+                controller: 'titleDetailController',
+                controllerAs: 'singleTitleVm'
             })
             .otherwise({
                 redirectTo: '/titles'

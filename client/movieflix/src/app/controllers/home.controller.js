@@ -26,6 +26,8 @@
         self.itemsPerPage = 12;
         self.maxSize = 5;
 
+        self.getNoOfComments = getNoOfComments;
+
         self.onPageChange=onPageChange;
         function changeSort(order) {
             self.sortReverse = !self.sortReverse;
@@ -67,7 +69,22 @@
 
 
     }
-
+    
+    function getNoOfComments(id) {
+        console.log('inside get number of comments method');
+        var count = 0;
+        for (var i = 0; i < self.titles.length; i++) {
+            if (self.titles[i].id == id) {
+                for (var j = 0; j < self.titles[i].userRatingCollection.length; j++) {
+                    if (self.titles[i].userRatingCollection[j].comment != null) {
+                        count++;
+                    }
+                }
+            }
+        }
+        console.log('count--- ' + count);
+        return count;
+    }
 
     function titleDirective() {
         console.log('inside directive');

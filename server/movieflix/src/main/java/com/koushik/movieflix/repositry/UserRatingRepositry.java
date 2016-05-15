@@ -17,10 +17,14 @@ import com.koushik.movieflix.entity.UserRatingPK;
 public interface UserRatingRepositry {
 
     public void create(UserRating userRating);
+    
+    public void edit(UserRating userRating);
 
     public UserRating findUserRating(UserRatingPK id);
     
     public User findUser(int id);
     
     public Title findTitle(int id);
+    
+    public UserRating findUserRatingforTitle(int userId,int titleId);
 }

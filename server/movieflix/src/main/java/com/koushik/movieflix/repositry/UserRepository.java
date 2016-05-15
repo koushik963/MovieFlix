@@ -18,5 +18,6 @@ public interface UserRepository {
     public User findByEmail(String email);
 
     public void create(User user);
-
+    
+    public void edit(User user);
 }

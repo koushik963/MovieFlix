@@ -8,12 +8,13 @@ package com.koushik.movieflix.controller;
 import com.koushik.movieflix.entity.Title;
 import com.koushik.movieflix.entity.User;
 import com.koushik.movieflix.entity.UserRating;
+import com.koushik.movieflix.exception.UserNotFoundException;
 import com.koushik.movieflix.service.UserRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -25,17 +26,33 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class RatingController {
 
     @Autowired
-    UserRatingService userService;
+    UserRatingService userRatingService;
 
-    @RequestMapping(value = "/rating/{user}/{title}/{rate}/{comment}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void rateAndComment(@PathVariable("rate") short rate, @PathVariable("user") int userId, @PathVariable("comment") String comment, @PathVariable("title") int titleId, UriComponentsBuilder ucBuilder) {
-
+    @RequestMapping(value = "/rating/{user}/{title}", method = RequestMethod.POST)
+    public void rateAndComment(
+            @RequestParam(value = "rate", required = false) Short rate,
+            @PathVariable("user") int userId, 
+            @RequestParam(value = "comment", required = false) String comment,
+            @PathVariable("title") int titleId, 
+            UriComponentsBuilder ucBuilder) throws UserNotFoundException {
         System.out.println("user with id: " + userId + " has just rated title with id: " + titleId + " with rate: " + rate + " and commented: " + comment);
-        UserRating rating = new UserRating();
-        rating.setUser(new User(userId));
-        rating.setTitle(new Title(titleId));
-        rating.setComment(comment);
-        rating.setRating(rate);
-        userService.rate(rating);
+        //check if this user has rating on this title
+        UserRating retrievedUserRating = userRatingService.userhasRateOntitle(userId, titleId);
+        if (retrievedUserRating == null) {
+            UserRating newRating = new UserRating();
+            newRating.setUser(new User(userId));
+            newRating.setTitle(new Title(titleId));
+            newRating.setComment(comment);
+            newRating.setRating(rate);
+            userRatingService.rate(newRating);
+        } else {
+            if (comment != null) {
+                retrievedUserRating.setComment(comment);
+            }
+            if (rate != null) {
+                retrievedUserRating.setRating(rate);
+            }
+            userRatingService.updateRate(retrievedUserRating);
+        }
     }
 }

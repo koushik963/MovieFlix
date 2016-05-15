@@ -6,13 +6,10 @@
 package com.koushik.movieflix.service;
 
 import com.koushik.movieflix.entity.User;
-import com.koushik.movieflix.entity.UserRating;
 import com.koushik.movieflix.exception.UserAlreadyExistsException;
 import com.koushik.movieflix.exception.UserNotFoundException;
 import com.koushik.movieflix.repositry.UserRatingRepositry;
 import com.koushik.movieflix.repositry.UserRepository;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

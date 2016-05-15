@@ -19,10 +19,14 @@ import com.koushik.movieflix.exception.UserNotFoundException;
 public interface UserRatingService {
 
     public UserRating findUserRating(UserRatingPK id) throws UserNotFoundException;
-    
+
     public User findUser(int id) throws UserNotFoundException;
-    
+
     public Title findTitle(int id) throws TitleNotFoundException;
+
+    public void rate(UserRating rating);
     
-    public void rate(UserRating rating) ;
+    public void updateRate(UserRating rating) throws UserNotFoundException;
+
+    public UserRating userhasRateOntitle(int userId, int titleId);
 }

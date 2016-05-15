@@ -20,6 +20,8 @@ public interface TitleService {
     void delete(int id) throws TitleNotFoundException, IllegalOrphanException;
 
     void update(Title title) throws TitleNotFoundException;
-    
-     void addTitle(Title title) throws TitleAlreadyExistsException;
+   
+    void addTitle(Title title) throws TitleAlreadyExistsException;
+
+    public void checkTitleExistence(Title title) throws TitleAlreadyExistsException;
 }

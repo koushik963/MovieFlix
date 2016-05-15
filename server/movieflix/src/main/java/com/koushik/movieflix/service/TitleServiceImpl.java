@@ -14,7 +14,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.koushik.movieflix.repositry.TitleRepositry;
-import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,20 +50,10 @@ public class TitleServiceImpl implements TitleService {
             System.out.println("Unable to delete. title with id " + id + " not found");
             throw new TitleNotFoundException();
         }
-        List<String> illegalOrphanMessages = null;
-        Collection<UserRating> userRatingCollectionOrphanCheck = findTitle.getUserRatingCollection();
-        for (UserRating userRatingCollectionOrphanCheckUserRating : userRatingCollectionOrphanCheck) {
-            if (illegalOrphanMessages == null) {
-                illegalOrphanMessages = new ArrayList<>();
-            }
-            illegalOrphanMessages.add("This Title (" + findTitle + ") cannot be destroyed since the UserRating " + userRatingCollectionOrphanCheckUserRating + " in its userRatingCollection field has a non-nullable title field.");
-        }
-        if (illegalOrphanMessages != null) {
-            throw new IllegalOrphanException(illegalOrphanMessages);
-        }
         titleRepositry.destroy(findTitle);
     }
 
+    @Override
     public void checkTitleExistence(Title title) throws TitleAlreadyExistsException{
     
         Title findTitle = titleRepositry.findTitle(title.getId());

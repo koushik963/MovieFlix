@@ -32,6 +32,11 @@ public class UserRatingRepositryImpl implements UserRatingRepositry {
     }
 
     @Override
+    public void edit(UserRating userRating) {
+        em.merge(userRating);
+    }
+
+    @Override
     public UserRating findUserRating(UserRatingPK id) {
         return em.find(UserRating.class, id);
     }
@@ -46,6 +51,11 @@ public class UserRatingRepositryImpl implements UserRatingRepositry {
         return em.find(Title.class, id);
     }
     
+    @Override
+    public UserRating findUserRatingforTitle(int userId, int titleId) {
+        UserRatingPK userRatingKey = new UserRatingPK(userId, titleId);
+        return em.find(UserRating.class, userRatingKey);
+    }
 
     public int getUserRatingCount() {
 

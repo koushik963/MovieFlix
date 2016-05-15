@@ -54,6 +54,36 @@ public class UserRepositryImpl implements UserRepository {
     }
 
     @Override
+    public void edit(User user) {
+        try {
+            User persistentUser = em.find(User.class, user.getId());
+            Collection<UserRating> userRatingCollectionOld = persistentUser.getUserRatingCollection();
+            Collection<UserRating> userRatingCollectionNew = user.getUserRatingCollection();
+            Collection<UserRating> attachedUserRatingCollectionNew = new ArrayList<>();
+            for (UserRating userRatingCollectionNewUserRatingToAttach : userRatingCollectionNew) {
+                userRatingCollectionNewUserRatingToAttach = em.getReference(userRatingCollectionNewUserRatingToAttach.getClass(), userRatingCollectionNewUserRatingToAttach.getUserRatingPK());
+                attachedUserRatingCollectionNew.add(userRatingCollectionNewUserRatingToAttach);
+            }
+            userRatingCollectionNew = attachedUserRatingCollectionNew;
+            user.setUserRatingCollection(userRatingCollectionNew);
+            user = em.merge(user);
+            for (UserRating userRatingCollectionNewUserRating : userRatingCollectionNew) {
+                if (!userRatingCollectionOld.contains(userRatingCollectionNewUserRating)) {
+                    User oldUserOfUserRatingCollectionNewUserRating = userRatingCollectionNewUserRating.getUser();
+                    userRatingCollectionNewUserRating.setUser(user);
+                    userRatingCollectionNewUserRating = em.merge(userRatingCollectionNewUserRating);
+                    if (oldUserOfUserRatingCollectionNewUserRating != null && !oldUserOfUserRatingCollectionNewUserRating.equals(user)) {
+                        oldUserOfUserRatingCollectionNewUserRating.getUserRatingCollection().remove(userRatingCollectionNewUserRating);
+                        em.merge(oldUserOfUserRatingCollectionNewUserRating);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error while updating User");
+        }
+    }
+
+    @Override
     public User findUser(Integer id) {
         try {
             return em.find(User.class, id);

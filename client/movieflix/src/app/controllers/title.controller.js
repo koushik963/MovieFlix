@@ -11,10 +11,6 @@
         self.edit = edit;
         self.remove = remove;
         self.reset = reset;
-        init();
-        function init() {
-
-        }
 
         self.fetchAllTitles = function () {
             titleService.fetchAllTitles()
@@ -65,6 +61,7 @@
                 );
         };
 
+        
         function submit() {
             if (self.title.id == null) {
                 console.log('Saving New Title', self.title);
@@ -97,8 +94,6 @@
             $scope.myForm.$setPristine(); //reset Form
         };
         self.fetchAllTitles();
-
-        
     }
 
 

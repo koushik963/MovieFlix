@@ -16,8 +16,9 @@
         </div>
     </div>
     <div class=" container ">
-        <textarea class="form-control custom-control" rows="3" style="resize:none"></textarea>
-        <button class="btn btn-primary pull-left form-control">Comment</button>
+        <textarea class="form-control custom-control" rows="3" style="resize:none"
+                  ng-model="singleTitleVm.userComment"></textarea>
+        <button class="btn btn-primary pull-left form-control" ng-click="singleTitleVm.postComment()">Comment</button>
         <div class="container" ng-repeat="comment in singleTitleVm.selectedTitle.userRatingCollection">
             <div ng-if="singleTitleVm.selectedTitle.userRatingCollection.length <=0">
                 No Comments

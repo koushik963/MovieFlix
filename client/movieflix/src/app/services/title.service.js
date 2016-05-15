@@ -13,6 +13,7 @@
         self.updateTitle = updateTitle;
         self.deleteTitle = deleteTitle;
         self.postComment = postComment;
+        self.rate = rate;
 
         function createTitle(title) {
             return $http.post('http://localhost:8080/movieflix/titles/admin/create/', title)
@@ -25,15 +26,16 @@
                 .then(successFn, errorFn);
         }
 
-        function postComment(comment){
-            return $http.post()
-                .then(successFn,errorFn);
+        function postComment(comment) {
+            $http.post('http://localhost:8080/movieflix/rating/' + userId + '/' + titleId + '?comment=' + comment)
+                .then(successFn, errorFn);
         }
 
-        function fetchTitleById(id){
+        function fetchTitleById(id) {
             return $http.get('http://localhost:8080/movieflix/titles/' + id)
                 .then(successFn, errorFn);
         }
+
         function updateTitle(title, id) {
             return $http.post('http://localhost:8080/movieflix/titles/admin/update/' + id, title)
                 .then(successFn, errorFn);
@@ -41,6 +43,11 @@
 
         function deleteTitle(id) {
             return $http.post('http://localhost:8080/movieflix/titles/admin/delete/' + id)
+                .then(successFn, errorFn);
+        }
+
+        function rate(userId, titleId, rating) {
+            $http.post('http://localhost:8080/movieflix/rating/' + userId + '/' + titleId + '?rate=' + rating)
                 .then(successFn, errorFn);
         }
 

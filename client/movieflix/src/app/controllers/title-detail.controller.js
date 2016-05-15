@@ -6,9 +6,9 @@
     titleDetailController.$inject = ['$scope', 'titleService', '$routeParams'];
     function titleDetailController($scope, titleService, $routeParams) {
         var self = this;
-self.rate=10;
+        self.rate;
+        self.userComment;
 
-        self.updatedTitle;
         self.fetchTitleById = function () {
             titleService.fetchTitleById($routeParams.id)
                 .then(function (response) {
@@ -18,18 +18,27 @@ self.rate=10;
                 });
         };
         self.fetchTitleById();
-        self.display = function () {
 
-            self.updatedTitle = self.selectedTitle;
-            console.log(self.selectedTitle);
-            console.log(self.selectedTitle.id);
+        self.postComment = function () {
+            //need to update with user id
+            titleService.postComment(1, selectedTitle.id, userComment)
+                .then(function (response) {
+                    console.log('posted comment succesfully');
+                }, function (errResponse) {
+                    console.error('error posting comment.');
+                });
+        };
+
+        self.postRating = function () {
+            titleService.rate(1, selectedTitle.id, rate)
+                .then(function (response) {
+
+                }, function (errResponse) {
+
+                });
         }
 
-        $scope.$watch('selectedTitle', function (newvalue) {
-            if (newvalue) {
-                self.display();
-            }
-        });
+
     }
 
 })();

@@ -8,6 +8,8 @@ package com.koushik.movieflix.controller;
 import com.koushik.movieflix.entity.User;
 import com.koushik.movieflix.exception.UserAlreadyExistsException;
 import com.koushik.movieflix.exception.UserNotFoundException;
+import com.koushik.movieflix.repositry.UserRepository;
+import com.koushik.movieflix.security.SecurityUtils;
 import com.koushik.movieflix.service.TitleService;
 import com.koushik.movieflix.service.UserService;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -38,12 +41,23 @@ public class UserRestController {
     @Autowired
     TitleService titleService;
 
+    @Autowired
+    UserRepository userRepo;
+
     @RequestMapping(value = "/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public User getUser(@PathVariable("email") String email) throws UserNotFoundException {
         System.out.println("Fetching User with id " + email);
         User user = new User();
         user.setEmail(email);
         return userService.login(user);
+    }
+
+    @RequestMapping(value = "/security/account", method = RequestMethod.GET)
+    public @ResponseBody
+    User getUserAccount() {
+        User user = userRepo.findByEmail(SecurityUtils.getCurrentLogin());
+        user.setPassword(null);
+        return user;
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

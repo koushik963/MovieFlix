@@ -14,6 +14,7 @@ import com.koushik.movieflix.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,13 +51,15 @@ public class TitleController {
         return titleService.retrieveTitle(title);
     }
 
+  //  @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/admin/delete/{titleId}", method = RequestMethod.DELETE)
     public void deleteTitle(@PathVariable("titleId") int id) throws TitleNotFoundException, IllegalOrphanException {
         System.out.println("Deleting Title with id " + id);
         titleService.delete(id);
     }
 
-    @RequestMapping(value = "/admin/update/{id}", method = RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    //@PreAuthorize("hasAuthority('admin')")
+    @RequestMapping(value = "/admin/update/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Title updateUser(@PathVariable("id") int id, @RequestBody Title title) throws TitleNotFoundException {
         System.out.println("Updating title " + id);
 
@@ -86,7 +89,8 @@ public class TitleController {
         return titleToBeUpdated;
     }
 
-    @RequestMapping(value = "/admin/create/", method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
+  //  @PreAuthorize("hasAuthority('admin')")
+    @RequestMapping(value = "/admin/create/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createTitle(@RequestBody Title title, UriComponentsBuilder ucBuilder) throws TitleAlreadyExistsException {
         System.out.println("Creating titles " + title.getTitle());
         titleService.addTitle(title);

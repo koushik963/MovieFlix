@@ -7,7 +7,9 @@ package com.koushik.movieflix.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,6 +17,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -52,6 +57,12 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Collection<UserRating> userRatingCollection;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_authority", joinColumns = {
+        @JoinColumn(name = "id_user", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_authority", table = "authority", referencedColumnName = "id")})
+    private Set<Authority> authorities = new HashSet<Authority>();
+
     public User() {
     }
 
@@ -64,7 +75,8 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
     }
-        public Integer getId() {
+
+    public Integer getId() {
         return id;
     }
 
@@ -118,6 +130,14 @@ public class User implements Serializable {
 
     public void setUserRatingCollection(Collection<UserRating> userRatingCollection) {
         this.userRatingCollection = userRatingCollection;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     @Override

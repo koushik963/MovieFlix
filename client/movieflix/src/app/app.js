@@ -40,6 +40,11 @@
                 }
 
             })
+            .when('/signup',{
+                templateUrl: 'app/views/sign-up.tmpl.html',
+                controller: 'userController',
+                controllerAs: 'userVm'
+            })
             .when('/logout', {
                 template: "<div>Logout</div>",
                 controller: 'logoutController',

@@ -61,3 +61,16 @@ width:auto;
 
     padding-left: 350px;
 }
+
+.comment-box{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.comment-name{
+    font-size: medium;
+    border-bottom: 5px solid #286090;
+    width: 100%;
+    padding: 5px 10px;
+    box-shadow: none;
+}

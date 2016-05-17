@@ -26,8 +26,8 @@
                 .then(successFn, errorFn);
         }
 
-        function postComment(comment) {
-            $http.post(CONFIG.API_HOST+'/rating/' + userId + '/' + titleId + '?comment=' + comment)
+        function postComment(userId,titleId,comment) {
+           return $http.post(CONFIG.API_HOST+'/rating/' + userId + '/' + titleId + '?comment=' + comment)
                 .then(successFn, errorFn);
         }
 

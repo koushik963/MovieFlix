@@ -3,8 +3,8 @@
     angular.module('movieflix')
         .controller('titleDetailController', titleDetailController);
 
-    titleDetailController.$inject = ['$scope', 'titleService', '$routeParams'];
-    function titleDetailController($scope, titleService, $routeParams) {
+    titleDetailController.$inject = ['$rootScope','titleService', '$routeParams','Notification'];
+    function titleDetailController($rootScope, titleService, $routeParams,Notification) {
         var self = this;
         self.rate;
         self.userComment;
@@ -21,16 +21,19 @@
 
         self.postComment = function () {
             //need to update with user id
-            titleService.postComment(1, selectedTitle.id, userComment)
+            console.log($rootScope.account.id);
+            titleService.postComment($rootScope.account.id, self.selectedTitle.id, self.userComment)
                 .then(function (response) {
                     console.log('posted comment succesfully');
+                    Notification.success('Posted Comment Succesfully!!!');
+                    self.fetchTitleById();
                 }, function (errResponse) {
                     console.error('error posting comment.');
                 });
         };
 
         self.postRating = function () {
-            titleService.rate(1, selectedTitle.id, rate)
+            titleService.rate(1, self.selectedTitle.id, rate)
                 .then(function (response) {
 
                 }, function (errResponse) {

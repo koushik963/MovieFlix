@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('movieflix', ['ngRoute', 'http-auth-interceptor', 'ngAnimate', 'ui.bootstrap'])
+    angular.module('movieflix', ['ngRoute', 'http-auth-interceptor', 'ngAnimate', 'ui.bootstrap', 'ui-notification'])
         .config(mainConfig)
         .run(runApp)
 

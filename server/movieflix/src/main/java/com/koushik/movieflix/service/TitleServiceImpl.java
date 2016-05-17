@@ -27,8 +27,10 @@ public class TitleServiceImpl implements TitleService {
     @Override
     public List<Title> retrieveAllTitles() throws TitleNotFoundException {
         List<Title> persistedTitles = titleRepositry.findTitleEntities();
-        if (persistedTitles.isEmpty()) {
-            throw new TitleNotFoundException();
+        if (persistedTitles != null) {
+            if (persistedTitles.isEmpty()) {
+                throw new TitleNotFoundException();
+            }
         }
         return persistedTitles;
     }
@@ -41,7 +43,7 @@ public class TitleServiceImpl implements TitleService {
         }
         return persistedTitle;
     }
-    
+
     @Override
     public void delete(int id) throws TitleNotFoundException, IllegalOrphanException {
 
@@ -54,14 +56,15 @@ public class TitleServiceImpl implements TitleService {
     }
 
     @Override
-    public void checkTitleExistence(Title title) throws TitleAlreadyExistsException{
-    
+    public void checkTitleExistence(Title title) throws TitleAlreadyExistsException {
+
         Title findTitle = titleRepositry.findTitle(title.getId());
         if (findTitle != null) {
             System.out.println("Unable to create. title with id " + title.getId() + " already exists");
             throw new TitleAlreadyExistsException();
         }
     }
+
     @Override
     public void update(Title title) throws TitleNotFoundException {
         Title persistentTitle = titleRepositry.findTitle(title.getId());

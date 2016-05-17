@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new org.springframework.web.filter.CorsFilter(source), LogoutFilter.class)
                 .authorizeRequests()
                 .antMatchers("/titles/admin/**").hasAnyAuthority("admin")
-                .anyRequest().authenticated()
+               // .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/authenticate")

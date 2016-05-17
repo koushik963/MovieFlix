@@ -38,6 +38,7 @@ public class UserRating implements Serializable {
     protected UserRatingPK userRatingPK;
     private Short rating;
     private String comment;
+    private String name;
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private User user;
@@ -101,12 +102,21 @@ public class UserRating implements Serializable {
         this.comment = comment;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 79 * hash + Objects.hashCode(this.userRatingPK);
         hash = 79 * hash + Objects.hashCode(this.rating);
         hash = 79 * hash + Objects.hashCode(this.comment);
+        hash = 79 * hash + Objects.hashCode(this.name);
         hash = 79 * hash + Objects.hashCode(this.user);
         hash = 79 * hash + Objects.hashCode(this.title);
         return hash;
@@ -127,6 +137,9 @@ public class UserRating implements Serializable {
         if (!Objects.equals(this.comment, other.comment)) {
             return false;
         }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
         if (!Objects.equals(this.userRatingPK, other.userRatingPK)) {
             return false;
         }
@@ -141,5 +154,7 @@ public class UserRating implements Serializable {
         }
         return true;
     }
+
+
     
 }

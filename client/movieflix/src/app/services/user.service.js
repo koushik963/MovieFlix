@@ -4,13 +4,13 @@
     angular.module('movieflix')
         .service('userService', userService);
 
-    userService.$inject = ['$http', '$q'];
-    function userService($http, $q) {
+    userService.$inject = ['$http', '$q','CONFIG'];
+    function userService($http, $q,CONFIG) {
         var self = this;
         self.signUp = signUp;
         
         function signUp(user) {
-           return $http.post('http://localhost:8080/movieflix/users',user)
+           return $http.post(CONFIG.API_HOST+'/users',user)
                 .then(successFn,errorFn);
         }
         function successFn(response) {

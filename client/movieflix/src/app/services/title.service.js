@@ -3,9 +3,9 @@
     angular.module('movieflix')
         .service('titleService', titleService);
 
-    titleService.$inject = ['$http', '$q'];
+    titleService.$inject = ['$http', '$q','CONFIG'];
 
-    function titleService($http, $q) {
+    function titleService($http, $q,CONFIG) {
         var self = this;
         self.createTitle = createTitle;
         self.fetchAllTitles = fetchAllTitles;
@@ -16,38 +16,38 @@
         self.rate = rate;
 
         function createTitle(title) {
-            return $http.post('http://localhost:8080/movieflix/titles/admin/create/', title)
+            return $http.post(CONFIG.API_HOST+'/titles/admin/create/', title)
                 .then(successFn, errorFn);
         }
 
         function fetchAllTitles() {
             console.log('inside title service');
-            return $http.get('http://localhost:8080/movieflix/titles/')
+            return $http.get(CONFIG.API_HOST+'/titles/')
                 .then(successFn, errorFn);
         }
 
         function postComment(comment) {
-            $http.post('http://localhost:8080/movieflix/rating/' + userId + '/' + titleId + '?comment=' + comment)
+            $http.post(CONFIG.API_HOST+'/rating/' + userId + '/' + titleId + '?comment=' + comment)
                 .then(successFn, errorFn);
         }
 
         function fetchTitleById(id) {
-            return $http.get('http://localhost:8080/movieflix/titles/' + id)
+            return $http.get(CONFIG.API_HOST+'/titles/' + id)
                 .then(successFn, errorFn);
         }
 
         function updateTitle(title, id) {
-            return $http.post('http://localhost:8080/movieflix/titles/admin/update/' + id, title)
+            return $http.post(CONFIG.API_HOST+'/titles/admin/update/' + id, title)
                 .then(successFn, errorFn);
         }
 
         function deleteTitle(id) {
-            return $http.post('http://localhost:8080/movieflix/titles/admin/delete/' + id)
+            return $http.post(CONFIG.API_HOST+'/titles/admin/delete/' + id)
                 .then(successFn, errorFn);
         }
 
         function rate(userId, titleId, rating) {
-            $http.post('http://localhost:8080/movieflix/rating/' + userId + '/' + titleId + '?rate=' + rating)
+            $http.post(CONFIG.API_HOST+'/rating/' + userId + '/' + titleId + '?rate=' + rating)
                 .then(successFn, errorFn);
         }
 

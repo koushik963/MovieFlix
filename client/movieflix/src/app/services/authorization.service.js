@@ -5,9 +5,9 @@
         .service('authorizationService', authorizationService);
 
 
-    authorizationService.$inject = ['$rootScope', '$http', 'authService', 'session', '$q'];
+    authorizationService.$inject = ['$rootScope', '$http', 'authService', 'session', 'CONFIG'];
 
-    function authorizationService($rootScope, $http, authService, session) {
+    function authorizationService($rootScope, $http, authService, session, CONFIG) {
 
         var self = this;
         self.login = login;
@@ -32,8 +32,8 @@
              $rootScope.authenticationError = true;
              session.inValidate();
              });*/
-
-            $http.post('http://localhost:8080/movieflix/authenticate', '', config)
+            console.log(CONFIG.API_HOST);
+            $http.post(CONFIG.API_HOST + '/authenticate', '', config)
                 .success(function (data, status, headers, config) {
                     authService.loginConfirmed(data);
                 }).error(function (data, status, headers, config) {
@@ -44,7 +44,7 @@
 
         function getAccount() {
             $rootScope.loadingAccount = true;
-            $http.get('http://localhost:8080/movieflix/security/account')
+            $http.get(CONFIG.API_HOST + '/security/account')
                 .then(function (response) {
                     authService.loginConfirmed(response.data);
                 });
@@ -72,11 +72,11 @@
             $rootScope.authenticationError = false;
             $rootScope.authenticated = false;
             $rootScope.account = null;
-            $http.get('http://localhost:8080/movieflix/logout')
+            $http.get(CONFIG.API_HOST + '/logout')
                 .success(function (data) {
                     console.log('logout success');
                 }).error(function () {
-                    console.log('logout failure');
+                console.log('logout failure');
             });
             session.inValidate();
             authService.loginCancelled();

@@ -3,8 +3,9 @@
         <p id="title">{{person.title}}</p>
         <img class="image" ng-src="{{person.poster}}">
     </a>
-    <uib-rating ng-model="person.imdbrating" max="10" data-readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null"
-    aria-labelledby="default-rating" ></uib-rating>
+    <uib-rating ng-model="person.imdbrating" max="10" data-readonly="true" on-hover="hoveringOver(value)"
+                on-leave="overStar = null"
+                aria-labelledby="default-rating"></uib-rating>
     <span class="glyphicon glyphicon-tag">{{person.getNoOfComments(person.id)}}</span>
     <p>Rating: {{person.imdbrating}}</p>
     <p>Votes: {{person.imdbvotes}}</p>

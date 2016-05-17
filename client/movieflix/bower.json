@@ -29,6 +29,16 @@
         "dist/fonts/glyphicons-halflings-regular.woff",
         "dist/fonts/glyphicons-halflings-regular.woff2"
       ]
+    },
+    "font-awesome":{
+      "main":[
+        "fonts/FontAwesome.otf",
+        "fonts/FontAwesome-webfont.eot",
+        "fonts/FontAwesome-webfont.svg",
+        "fonts/FontAwesome-webfont.ttf",
+        "fonts/FontAwesome-webfont.woff",
+        "fonts/FontAwesome-webfont.woff2"
+      ]
     }
   }
 }

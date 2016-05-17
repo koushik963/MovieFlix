@@ -47,7 +47,7 @@
                 }
 
             })
-            .when('/signup',{
+            .when('/signup', {
                 templateUrl: 'app/views/sign-up.tmpl.html',
                 controller: 'userController',
                 controllerAs: 'userVm',
@@ -59,6 +59,14 @@
             .when('/logout', {
                 template: "<div>Logout</div>",
                 controller: 'logoutController',
+                access: {
+                    loginRequired: false,
+                    authorizedRoles: '*'
+                }
+            }).when("/error/:code", {
+                templateUrl: "app/views/error-page.html",
+                controller: "errorController",
+                controllerAs: "errorVm",
                 access: {
                     loginRequired: false,
                     authorizedRoles: '*'
@@ -82,7 +90,7 @@
                 $rootScope.$broadcast("event:auth-forbidden", {});
             }
         });
-        
+
         // Call when the the client is confirmed
         $rootScope.$on('event:auth-loginConfirmed', function (event, data) {
             console.log('login confirmed start ' + data);
@@ -101,6 +109,14 @@
             }, delay);
 
         });
+
+        $rootScope.$on('event:auth-forbidden', function (rejection) {
+            $rootScope.$evalAsync(function () {
+                $location.path('/error/403').replace();
+            });
+        });
+
+
         // Call when the 401 response is returned by the server
         $rootScope.$on('event:auth-loginRequired', function (event, data) {
             console.log('inside login required event');

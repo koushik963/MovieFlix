@@ -23,15 +23,15 @@
                 },
                 ignoreAuthModule: 'ignoreAuthModule'
             };
-         /*   $http.post('http://localhost:8080/movieflix/authenticate', '', config)
-                .then(function (data) {
-                    console.log('success login');
-                    authService.loginConfirmed(data);
-                }, function () {
-                    console.log('error login');
-                    $rootScope.authenticationError = true;
-                    session.inValidate();
-                });*/
+            /*   $http.post('http://localhost:8080/movieflix/authenticate', '', config)
+             .then(function (data) {
+             console.log('success login');
+             authService.loginConfirmed(data);
+             }, function () {
+             console.log('error login');
+             $rootScope.authenticationError = true;
+             session.inValidate();
+             });*/
 
             $http.post('http://localhost:8080/movieflix/authenticate', '', config)
                 .success(function (data, status, headers, config) {
@@ -49,7 +49,7 @@
                     authService.loginConfirmed(response.data);
                 });
         };
-        
+
         function isAuthorized(authorizedRoles) {
             if (!angular.isArray(authorizedRoles)) {
                 if (authorizedRoles == '*') {
@@ -68,11 +68,17 @@
             return isAuthorized;
         };
         function logout() {
+            console.log('in auth service log out method');
             $rootScope.authenticationError = false;
             $rootScope.authenticated = false;
             $rootScope.account = null;
-            $http.get('logout');
-            session.invalidate();
+            $http.get('http://localhost:8080/movieflix/logout')
+                .success(function (data) {
+                    console.log('logout success');
+                }).error(function () {
+                    console.log('logout failure');
+            });
+            session.inValidate();
             authService.loginCancelled();
         };
     }

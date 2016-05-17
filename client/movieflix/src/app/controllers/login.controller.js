@@ -18,6 +18,6 @@
                 }, function (errResponse) {
                     console.log('error login' + errResponse);
                 });*/
-        }
+        };
     }
 })();

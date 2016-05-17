@@ -6,13 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository" :
-  { "type" : "git",
-    "url" : "https://github.com/koushik963/movieflix.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/koushik963/movieflix.git"
   },
   "author": "koushik.r3@gmail.com",
   "license": "MIT",
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-inject": "^4.0.0",
+    "main-bower-files": "^2.13.0"
   }
 }

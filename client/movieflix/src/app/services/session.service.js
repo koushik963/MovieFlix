@@ -2,8 +2,8 @@
     'use strict';
     angular.module('movieflix')
         .service('session', session);
-    session.$inject = ['$resource'];
-    function session($resource) {
+    session.$inject = [];
+    function session() {
         var self = this;
         self.create = create;
         self.inValidate = inValidate;
@@ -13,7 +13,7 @@
             self.lastName = data.lastname;
             self.email = data.email;
             self.userRoles = [];
-            for(var i=0;i<data.authorities.length;i++){
+            for (var i = 0; i < data.authorities.length; i++) {
                 self.userRoles.push(data.authorities[i].name);
             }
         };

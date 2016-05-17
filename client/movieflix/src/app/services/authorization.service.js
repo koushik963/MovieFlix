@@ -51,7 +51,9 @@
         };
 
         function isAuthorized(authorizedRoles) {
+            console.log('parameter:'+authorizedRoles);
             if (!angular.isArray(authorizedRoles)) {
+                console.log('its an array');
                 if (authorizedRoles == '*') {
                     return true;
                 }
@@ -59,7 +61,7 @@
             }
             var isAuthorized = false;
             angular.forEach(authorizedRoles, function (authorizedRole) {
-                var authorized = (!!session.login &&
+                var authorized = (
                 session.userRoles.indexOf(authorizedRole) !== -1);
                 if (authorized || authorizedRole == '*') {
                     isAuthorized = true;

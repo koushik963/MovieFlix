@@ -1,14 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('movieflix', ['ngResource', 'ngRoute', 'http-auth-interceptor', 'ngAnimate', 'ui.bootstrap'])
+    angular.module('movieflix', ['ngRoute', 'http-auth-interceptor', 'ngAnimate', 'ui.bootstrap'])
         .config(mainConfig)
         .run(runApp)
-        .constant('USER_ROLES', {
-            all: '*',
-            admin: 'admin',
-            user: 'user'
-        });
 
     function mainConfig($routeProvider) {
 
@@ -17,18 +12,30 @@
             .when('/titles', {
                 templateUrl: 'app/views/admin.tmpl.html',
                 controller: 'titleController',
-                controllerAs: 'titleVm'
+                controllerAs: 'titleVm',
+                access: {
+                    loginRequired: true,
+                    authorizedRoles: 'admin'
+                }
 
             })
             .when('/user', {
                 templateUrl: 'app/views/user.tmpl.html',
                 controller: 'homeController',
-                controllerAs: 'homeVm'
+                controllerAs: 'homeVm',
+                access: {
+                    loginRequired: true,
+                    authorizedRoles: '*'
+                }
             })
             .when('/user/:id', {
                 templateUrl: 'app/views/title-detail.tmpl.html',
                 controller: 'titleDetailController',
-                controllerAs: 'singleTitleVm'
+                controllerAs: 'singleTitleVm',
+                access: {
+                    loginRequired: true,
+                    authorizedRoles: '*'
+                }
             })
             .when('/login', {
                 templateUrl: 'app/views/sign-in.tmpl.html',
@@ -43,7 +50,11 @@
             .when('/signup',{
                 templateUrl: 'app/views/sign-up.tmpl.html',
                 controller: 'userController',
-                controllerAs: 'userVm'
+                controllerAs: 'userVm',
+                access: {
+                    loginRequired: true,
+                    authorizedRoles: '*'
+                }
             })
             .when('/logout', {
                 template: "<div>Logout</div>",
@@ -58,7 +69,7 @@
             });
     }
 
-    function runApp($rootScope, $location, $http, authorizationService, session, USER_ROLES, $q, $timeout) {
+    function runApp($rootScope, $location, $http, authorizationService, session, $q, $timeout) {
         $rootScope.$on('$routeChangeStart', function (event, next) {
             if (next.originalPath === "/login" && $rootScope.authenticated) {
                 event.preventDefault();
@@ -66,16 +77,11 @@
                 event.preventDefault();
                 $rootScope.$broadcast("event:auth-loginRequired", {});
             } else if (next.access && !authorizationService.isAuthorized(next.access.authorizedRoles)) {
+                console.log('unauthorised');
                 event.preventDefault();
                 $rootScope.$broadcast("event:auth-forbidden", {});
             }
         });
-        
-        /*  $rootScope.$on('$routeChangeSuccess', function (scope, next, current) {
-         $rootScope.$evalAsync(function () {
-         $.material.init();
-         });
-         });*/
         
         // Call when the the client is confirmed
         $rootScope.$on('event:auth-loginConfirmed', function (event, data) {
@@ -93,12 +99,6 @@
                 console.log($rootScope.authenticated);
                 $location.path(nextLocation).replace();
             }, delay);
-
-            /*  session.create(data);
-             console.dir(session);
-             $rootScope.account = session;
-             $rootScope.authenticated = true;
-             $location.path(nextLocation).replace();*/
 
         });
         // Call when the 401 response is returned by the server
@@ -120,7 +120,5 @@
         $rootScope.$on('event:auth-loginCancelled', function () {
             $location.path('/login').replace();
         });
-        // Get already authenticated user account
-        //   authorizationService.getAccount();
     }
 })();

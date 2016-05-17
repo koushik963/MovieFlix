@@ -12,13 +12,15 @@
 <body>
 <header>
     <div class="container" >
-        <img class="img-responsive" src="images/movieflix.png">
+        <!--<img class="img-responsive" src="images/movieflix.png">
         <nav>
             <ul class="nav ">
                 <li><a href="#/resources" class="pull-right">Login</a></li>
                 <li><a href="#/resources" class="pull-right">Sign Up</a></li>
             </ul>
-        </nav>
+        </nav>-->
+
+        <div ng-if="authenticated" ng-include="'app/views/navigation-bar.tmpl.html'"></div>
     </div>
 
 </header>
@@ -29,6 +31,8 @@
 <footer>
     &copy; Koushik, Inc.
 </footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="https://code.angularjs.org/1.4.9/angular.js" data-semver="1.4.9"></script>
 <script src="https://code.angularjs.org/1.4.9/angular-resource.js"></script>
 <script src="https://code.angularjs.org/1.4.9/angular-route.js"></script>
@@ -49,6 +53,8 @@
 <script src="app/controllers/home.controller.js"></script>
 <script src="app/controllers/login.controller.js"></script>
 <script src="app/controllers/logout.controller.js"></script>
+
+
 </body>
 
 </html>

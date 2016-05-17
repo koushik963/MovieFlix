@@ -5,9 +5,9 @@
         .controller('homeController', homeController)
         .directive('titleDirective', titleDirective);
 
-    homeController.$inject = ['$scope', '$filter', 'titleService','$window'];
+    homeController.$inject = ['$scope', '$filter', 'titleService', '$window'];
 
-    function homeController($scope, $filter, titleService,$window) {
+    function homeController($scope, $filter, titleService, $window) {
         var self = this;
         self.title = {};
         self.titles = [];
@@ -27,8 +27,9 @@
         self.maxSize = 5;
 
         self.getNoOfComments = getNoOfComments;
+        self.onPageChange = onPageChange;
 
-        self.onPageChange=onPageChange;
+
         function changeSort(order) {
             self.sortReverse = !self.sortReverse;
             if (order == '0') {
@@ -37,13 +38,31 @@
                 self.titles = $filter('orderBy')(self.titles, 'imdbVotes', self.sortReverse);
             } else if (order == '2') {
                 self.titles = $filter('orderBy')(self.titles, 'imdbRating', self.sortReverse);
+            } else if (order == '3') {
+                var temp = [];
+                for (var j = 0; j < self.titles.length; j++) {
+                    if (self.titles[j].type == 'Romance') {
+                        temp.push(self.titles[j]);
+                    }
+                }
+                self.titles = $filter('orderBy')(temp, 'type', self.sortReverse);
+            } else if (order == '4') {
+                var temp = [];
+                for (var j = 0; j < self.titles.length; j++) {
+                    if (self.titles[j].type == 'Movie') {
+                        temp.push(self.titles[j]);
+                    }
+                }
+                self.titles = $filter('orderBy')(temp, 'type', self.sortReverse);
             }
         }
-        function onPageChange(){
+
+        function onPageChange() {
 
             console.log('page chaging');
-            $window.scrollTo(0,0);
+            $window.scrollTo(0, 0);
         }
+
         self.hoveringOver = function (value) {
             self.overStar = value;
         };
@@ -69,7 +88,7 @@
 
 
     }
-    
+
     function getNoOfComments(id) {
         console.log('inside get number of comments method');
         var count = 0;

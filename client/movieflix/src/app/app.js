@@ -64,9 +64,15 @@
                     authorizedRoles: '*'
                 }
             }).when("/error/:code", {
-                templateUrl: "app/views/error-page.html",
-                controller: "errorController",
-                controllerAs: "errorVm",
+            templateUrl: "app/views/error-page.html",
+            controller: "errorController",
+            controllerAs: "errorVm",
+            access: {
+                loginRequired: false,
+                authorizedRoles: '*'
+            }
+        }).when('/loading', {
+                templateUrl: "app/views/loading.html",
                 access: {
                     loginRequired: false,
                     authorizedRoles: '*'

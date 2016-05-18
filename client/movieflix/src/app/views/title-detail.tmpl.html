@@ -5,7 +5,7 @@
         </div>
         <div class="col-md-8 box1">
             <h3>{{singleTitleVm.selectedTitle.title}}</h3>
-            <uib-rating ng-model="singleTitleVm.selectedTitle.imdbrating" max="10" data-readonly="true"
+            <uib-rating ng-model="singleTitleVm.selectedTitle.imdbrating" max="10" data-readonly="true" read-only="true"
                         on-hover="hoveringOver(value)"
                         on-leave="overStar = null"
                         aria-labelledby="default-rating"></uib-rating>

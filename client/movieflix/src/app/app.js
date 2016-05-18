@@ -52,7 +52,7 @@
                 controller: 'userController',
                 controllerAs: 'userVm',
                 access: {
-                    loginRequired: true,
+                    loginRequired: false,
                     authorizedRoles: '*'
                 }
             })

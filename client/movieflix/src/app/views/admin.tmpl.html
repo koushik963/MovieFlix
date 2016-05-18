@@ -177,18 +177,22 @@
                             <th>Director</th>
                             <th>Genre</th>
                             <th>Released</th>
-                            <th width="20%">Actions</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="t in titleVm.titles">
-                            <td><img id="image" ng-src="{{t.poster}}"/></td>
-                            <td><span ng-bind="t.title"></span></td>
-                            <td><span ng-bind="t.director"></span></td>
-                            <td><span ng-bind="t.genre"></span></td>
-                            <td><span ng-bind="t.released"></span></td>
-                            <td><i ng-click="titleVm.edit(t.id)" class="glyphicon glyphicon-pencil">Edit</i>
-                                <i ng-click="titleVm.remove(t.id)" class="glyphicon glyphicon-remove">Delete</i></td>
+                            <td><img id="image" class="admin-page-image" ng-src="{{t.poster}}"/></td>
+                            <td class="col-xs-2"><span ng-bind="t.title"></span></td>
+                            <td class="col-xs-2"><span ng-bind="t.director"></span></td>
+                            <td class="col-xs-2"><span ng-bind="t.genre"></span></td>
+                            <td class="col-xs-2"><span ng-bind="t.released"></span></td>
+                            <td class="col-xs-5">
+                                <i ng-click="titleVm.edit(t.id)"
+                                   class="glyphicon glyphicon-pencil col-xs-3">Edit</i>
+                                <i ng-click="titleVm.remove(t.id)"
+                                   class="glyphicon glyphicon-remove col-xs-3">Delete</i>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

@@ -1,8 +1,8 @@
 package com.koushik.movieflix.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.koushik.movielfix.model.Response;
-import com.koushik.movielfix.model.Error;
+import com.koushik.movieflix.model.Error;
+import com.koushik.movieflix.model.Response;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;

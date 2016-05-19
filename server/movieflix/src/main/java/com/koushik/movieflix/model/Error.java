@@ -1,4 +1,4 @@
-package com.koushik.movielfix.model;
+package com.koushik.movieflix.model;
 
 public class Error {
 

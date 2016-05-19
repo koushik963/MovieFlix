@@ -80,6 +80,7 @@ public class Title implements Serializable {
     private String language;
     private String title;
     private String rated;
+    private String imdblink;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "title", fetch = FetchType.EAGER)
     private Collection<UserRating> userRatingCollection;
 
@@ -103,6 +104,14 @@ public class Title implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getImdblink() {
+        return imdblink;
+    }
+
+    public void setImdblink(String imdblink) {
+        this.imdblink = imdblink;
     }
 
     public String getCountry() {

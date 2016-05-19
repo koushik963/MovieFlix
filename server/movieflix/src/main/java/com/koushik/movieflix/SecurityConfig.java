@@ -73,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         config.addAllowedMethod("GET");
         config.addAllowedMethod("PUT");
         config.addAllowedMethod("POST");
+        config.addAllowedMethod("DELETE");
         source.registerCorsConfiguration("/**", config);
 
         http
@@ -84,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(new org.springframework.web.filter.CorsFilter(source), LogoutFilter.class)
                 .authorizeRequests()
-                .antMatchers("/titles/admin/**").hasAnyAuthority("admin")
+               // .antMatchers("/titles/admin/**").hasAnyAuthority("admin")
                // .anyRequest().authenticated()
                 .and()
                 .formLogin()

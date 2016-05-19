@@ -17,7 +17,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
  *
  * @author Koushik
@@ -30,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "UserRating.findByUserId", query = "SELECT u FROM UserRating u WHERE u.userRatingPK.userId = :userId"),
     @NamedQuery(name = "UserRating.findByTitleId", query = "SELECT u FROM UserRating u WHERE u.userRatingPK.titleId = :titleId"),
     @NamedQuery(name = "UserRating.findByRating", query = "SELECT u FROM UserRating u WHERE u.rating = :rating"),
-    @NamedQuery(name = "UserRating.findByComment", query = "SELECT u FROM UserRating u WHERE u.comment = :comment")})
+    @NamedQuery(name = "UserRating.findByComment", query = "SELECT u FROM UserRating u WHERE u.comment = :comment"),
+    @NamedQuery(name = "UserRating.getRating", query = "SELECT avg(u.rating) FROM UserRating u WHERE u.userRatingPK.titleId = :titleId")})
 public class UserRating implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,9 +45,9 @@ public class UserRating implements Serializable {
     @JoinColumn(name = "title_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Title title;
-    
-    public UserRating(){
-    
+
+    public UserRating() {
+
     }
 
     public UserRating(UserRatingPK userRatingPK) {
@@ -57,8 +57,7 @@ public class UserRating implements Serializable {
     public UserRating(int userId, int titleId) {
         this.userRatingPK = new UserRatingPK(userId, titleId);
     }
-    
-    
+
     @JsonIgnore
     public User getUser() {
         return user;
@@ -77,7 +76,6 @@ public class UserRating implements Serializable {
         this.title = title;
     }
 
-    
     public UserRatingPK getUserRatingPK() {
         return userRatingPK;
     }
@@ -155,6 +153,4 @@ public class UserRating implements Serializable {
         return true;
     }
 
-
-    
 }

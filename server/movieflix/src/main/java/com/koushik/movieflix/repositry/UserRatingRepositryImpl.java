@@ -45,16 +45,21 @@ public class UserRatingRepositryImpl implements UserRatingRepositry {
     public User findUser(int id) {
         return em.find(User.class, id);
     }
-    
+
     @Override
     public Title findTitle(int id) {
         return em.find(Title.class, id);
     }
-    
+
     @Override
     public UserRating findUserRatingforTitle(int userId, int titleId) {
         UserRatingPK userRatingKey = new UserRatingPK(userId, titleId);
         return em.find(UserRating.class, userRatingKey);
+    }
+
+    @Override
+    public Double getAvgRating(int titleId) {
+        return em.createNamedQuery("UserRating.getRating", Double.class).setParameter("titleId", titleId).getSingleResult();
     }
 
     public int getUserRatingCount() {

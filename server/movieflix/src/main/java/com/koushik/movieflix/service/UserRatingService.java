@@ -29,4 +29,6 @@ public interface UserRatingService {
     public void updateRate(UserRating rating) throws UserNotFoundException;
 
     public UserRating userhasRateOntitle(int userId, int titleId);
+    
+    public Double getAvgRating(int titleId);
 }

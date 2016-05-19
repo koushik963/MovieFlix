@@ -13,6 +13,7 @@ import com.koushik.movieflix.repositry.UserRepository;
 import com.koushik.movieflix.service.UserRatingService;
 import com.koushik.movieflix.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,28 +30,28 @@ public class RatingController {
 
     @Autowired
     UserRatingService userRatingService;
-    
+
     @Autowired
     UserRepository userRepo;
 
     @RequestMapping(value = "/rating/{user}/{title}", method = RequestMethod.POST)
     public void rateAndComment(
             @RequestParam(value = "rate", required = false) Short rate,
-            @PathVariable("user") int userId, 
+            @PathVariable("user") int userId,
             @RequestParam(value = "comment", required = false) String comment,
-            @PathVariable("title") int titleId, 
+            @PathVariable("title") int titleId,
             UriComponentsBuilder ucBuilder) throws UserNotFoundException {
         System.out.println("user with id: " + userId + " has just rated title with id: " + titleId + " with rate: " + rate + " and commented: " + comment);
         //check if this user has rating on this title
         UserRating retrievedUserRating = userRatingService.userhasRateOntitle(userId, titleId);
-        User user=userRepo.findUser(userId);
+        User user = userRepo.findUser(userId);
         if (retrievedUserRating == null) {
             UserRating newRating = new UserRating();
             newRating.setUser(new User(userId));
             newRating.setTitle(new Title(titleId));
             newRating.setComment(comment);
             newRating.setRating(rate);
-            newRating.setName(user.getFirstname()+" "+user.getLastname());
+            newRating.setName(user.getFirstname() + " " + user.getLastname());
             userRatingService.rate(newRating);
         } else {
             if (comment != null) {
@@ -61,5 +62,10 @@ public class RatingController {
             }
             userRatingService.updateRate(retrievedUserRating);
         }
+    }
+
+    @RequestMapping(value = "/getavgrating/{titleId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Double getAvgRating(@PathVariable("titleId") int titleId) {
+        return userRatingService.getAvgRating(titleId);
     }
 }

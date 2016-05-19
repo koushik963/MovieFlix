@@ -27,4 +27,6 @@ public interface UserRatingRepositry {
     public Title findTitle(int id);
     
     public UserRating findUserRatingforTitle(int userId,int titleId);
+    
+    public Double getAvgRating(int titleId);
 }

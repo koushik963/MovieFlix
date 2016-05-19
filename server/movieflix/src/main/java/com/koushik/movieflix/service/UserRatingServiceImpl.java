@@ -28,10 +28,10 @@ public class UserRatingServiceImpl implements UserRatingService {
 
     @Autowired
     UserRatingRepositry repository;
-    
+
     @Autowired
     UserRepository userRepositry;
-    
+
     @Autowired
     TitleRepositry titleRepositry;
 
@@ -84,7 +84,7 @@ public class UserRatingServiceImpl implements UserRatingService {
     }
 
     @Override
-    public void updateRate(UserRating userRating) throws UserNotFoundException{
+    public void updateRate(UserRating userRating) throws UserNotFoundException {
         userRating.getUserRatingPK().setUserId(userRating.getUser().getId());
         userRating.getUserRatingPK().setTitleId(userRating.getTitle().getId());
         try {
@@ -94,7 +94,7 @@ public class UserRatingServiceImpl implements UserRatingService {
             Title titleOld = persistentUserRating.getTitle();
             Title titleNew = userRating.getTitle();
             if (userNew != null) {
-                userNew = repository.findUser( userNew.getId());
+                userNew = repository.findUser(userNew.getId());
                 userRating.setUser(userNew);
             }
             if (titleNew != null) {
@@ -108,7 +108,7 @@ public class UserRatingServiceImpl implements UserRatingService {
             }
             if (userNew != null && !userNew.equals(userOld)) {
                 userNew.getUserRatingCollection().add(userRating);
-               userRepositry.edit(userNew);
+                userRepositry.edit(userNew);
             }
             if (titleOld != null && !titleOld.equals(titleNew)) {
                 titleOld.getUserRatingCollection().remove(userRating);
@@ -127,11 +127,16 @@ public class UserRatingServiceImpl implements UserRatingService {
                 }
             }
             throw ex;
-        } 
+        }
     }
 
     @Override
     public UserRating userhasRateOntitle(int userId, int titleId) {
         return repository.findUserRatingforTitle(userId, titleId);
+    }
+
+    @Override
+    public Double getAvgRating(int titleId) {
+        return repository.getAvgRating(titleId);
     }
 }

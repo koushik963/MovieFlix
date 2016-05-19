@@ -1,13 +1,18 @@
 <div class="image">
-    <a ng-href="#/user/{{person.id}}" class="thumbnail">
-        <p id="title">{{person.title}}</p>
-        <img class="image" ng-src="{{person.poster}}">
+    <a ng-href="#/user/{{title.id}}" class="thumbnail">
+        <p id="title">{{title.title}}</p>
+        <img class="image" ng-src="{{title.poster}}">
     </a>
-    <uib-rating ng-model="person.imdbrating" max="10" data-readonly="true" on-hover="hoveringOver(value)"
-                on-leave="overStar = null"
-                aria-labelledby="default-rating"></uib-rating>
-    <span class="glyphicon glyphicon-tag">{{person.getNoOfComments(person.id)}}</span>
-    <p>Rating: {{person.imdbrating}}</p>
-    <p>Votes: {{person.imdbvotes}}</p>
-    <p>Year: {{person.year}}</p>
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>IMDB Rating</td>
+            <td>{{title.imdbrating}}&nbsp;<i class="glyphicon glyphicon-star"></i></td>
+        </tr>
+        <tr>
+            <td>Comments</td>
+            <td>{{number}} &nbsp;<i class="glyphicon glyphicon-tag col"></i></td>
+        </tr>
+        </tbody>
+    </table>
 </div>

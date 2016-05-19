@@ -14,6 +14,7 @@
         self.deleteTitle = deleteTitle;
         self.postComment = postComment;
         self.postRate = postRate;
+        self.getAvgRating = getAvgRating;
 
         function createTitle(title) {
             return $http.post(CONFIG.API_HOST + '/titles/admin/create/', title)
@@ -48,6 +49,11 @@
 
         function postRate(userId, titleId, rating) {
             return $http.post(CONFIG.API_HOST + '/rating/' + userId + '/' + titleId + '?rate=' + rating)
+                .then(successFn, errorFn);
+        }
+
+        function getAvgRating(titleId) {
+            return $http.get(CONFIG.API_HOST + '/getavgrating/' + titleId)
                 .then(successFn, errorFn);
         }
 

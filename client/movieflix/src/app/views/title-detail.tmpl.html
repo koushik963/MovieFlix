@@ -5,11 +5,21 @@
         </div>
         <div class="col-md-8 box1">
             <h3>{{singleTitleVm.selectedTitle.title}}</h3>
+            <p>IMDB Rating: {{singleTitleVm.selectedTitle.imdbrating}}</p>
             <uib-rating ng-model="singleTitleVm.selectedTitle.imdbrating" max="10" data-readonly="true" read-only="true"
                         on-hover="hoveringOver(value)"
                         on-leave="overStar = null"
                         aria-labelledby="default-rating"></uib-rating>
-            <p>IMDB Rating: {{singleTitleVm.selectedTitle.imdbrating}}</p>
+            <p>MovieFlix Rating: {{singleTitleVm.avgRating}}</p>
+            <uib-rating ng-model="singleTitleVm.avgRating" max="10" data-readonly="true" read-only="true"
+                        on-hover="hoveringOver(value)"
+                        on-leave="overStar = null"
+                        aria-labelledby="default-rating"></uib-rating>
+            <p>Your Rating: {{singleTitleVm.avgRating}}</p>
+            <uib-rating ng-model="singleTitleVm.yourRating" max="10"
+                        on-hover="hoveringOver(value)"
+                        on-leave="overStar = null"
+                        aria-labelledby="default-rating"></uib-rating>
             <p>Director: {{singleTitleVm.selectedTitle.director}}</p>
             <p>Actors: {{singleTitleVm.selectedTitle.actors}}</p>
             <p>Plot: {{singleTitleVm.selectedTitle.plot}}</p>

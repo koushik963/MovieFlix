@@ -14,9 +14,9 @@
             titleService.fetchTitleById($routeParams.id)
                 .then(function (response) {
                     self.selectedTitle = response;
-
-                    self.originalRate=response.imdbrating;
-                    console.log('original rate'+self.originalRate);
+                    console.log('original rate' + self.originalRate);
+                    self.getAvgRating();
+                    self.setYourRating();
                 }, function (errResponse) {
                     console.error('Error Retreiving details of Single Title' + $routeParams)
                 });
@@ -45,18 +45,37 @@
                 });
         }
 
+        self.getAvgRating = function () {
+            titleService.getAvgRating(self.selectedTitle.id)
+                .then(function (response) {
+                    self.avgRating = response;
+                }, function (errResponse) {
+                    console.log('error fetching avg rrating');
+                });
+        }
+
+        self.setYourRating = function () {
+            for (var i = 0; i < self.selectedTitle.userRatingCollection.length; i++) {
+                if (self.selectedTitle.userRatingCollection[i].userRatingPK.userId == $rootScope.account.id) {
+                    self.yourRating = self.selectedTitle.userRatingCollection[i].rating;
+                    self.originalRate = self.yourRating;
+                }
+            }
+        }
+
         $scope.$watch(
             function () {
-                return self.selectedTitle.imdbrating;
+                return self.yourRating;
             },
             function handleRateChange(newValue, oldValue) {
-                if(newValue!==undefined && newValue!==self.originalRate){
+                if (newValue !== undefined && newValue !== self.originalRate) {
                     console.log("new rate value", newValue);
-                    titleService.postRate($rootScope.account.id,self.selectedTitle.id,newValue)
-                        .then(function(response){
+                    titleService.postRate($rootScope.account.id, self.selectedTitle.id, newValue)
+                        .then(function (response) {
                             console.log('rate posted');
+                            self.fetchTitleById();
                             Notification.success('Posted Rating Succesfully!!!');
-                        },function (errResponse) {
+                        }, function (errResponse) {
                             console.log('error posting rate');
                         })
                 }

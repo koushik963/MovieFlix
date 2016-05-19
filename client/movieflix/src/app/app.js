@@ -6,9 +6,7 @@
         .run(runApp)
 
     function mainConfig($routeProvider) {
-
         $routeProvider
-
             .when('/titles', {
                 templateUrl: 'app/views/admin.tmpl.html',
                 controller: 'titleController',
@@ -17,7 +15,6 @@
                     loginRequired: true,
                     authorizedRoles: 'admin'
                 }
-
             })
             .when('/user', {
                 templateUrl: 'app/views/user.tmpl.html',
@@ -45,7 +42,6 @@
                     loginRequired: false,
                     authorizedRoles: '*'
                 }
-
             })
             .when('/signup', {
                 templateUrl: 'app/views/sign-up.tmpl.html',
@@ -64,14 +60,14 @@
                     authorizedRoles: '*'
                 }
             }).when("/error/:code", {
-            templateUrl: "app/views/error-page.html",
-            controller: "errorController",
-            controllerAs: "errorVm",
-            access: {
-                loginRequired: false,
-                authorizedRoles: '*'
-            }
-        }).when('/loading', {
+                templateUrl: "app/views/error-page.html",
+                controller: "errorController",
+                controllerAs: "errorVm",
+                access: {
+                    loginRequired: false,
+                    authorizedRoles: '*'
+                }
+            }).when('/loading', {
                 templateUrl: "app/views/loading.html",
                 access: {
                     loginRequired: false,
@@ -113,7 +109,6 @@
                 console.log($rootScope.authenticated);
                 $location.path(nextLocation).replace();
             }, delay);
-
         });
 
         $rootScope.$on('event:auth-forbidden', function (rejection) {
@@ -121,8 +116,7 @@
                 $location.path('/error/403').replace();
             });
         });
-
-
+        
         // Call when the 401 response is returned by the server
         $rootScope.$on('event:auth-loginRequired', function (event, data) {
             console.log('inside login required event');

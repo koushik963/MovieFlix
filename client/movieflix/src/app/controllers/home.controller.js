@@ -86,30 +86,32 @@
         };
         self.fetchAllTitles();
 
-
-    }
-
-    function getNoOfComments(id) {
-        console.log('inside get number of comments method');
-        var count = 0;
-        for (var i = 0; i < self.titles.length; i++) {
-            if (self.titles[i].id == id) {
-                for (var j = 0; j < self.titles[i].userRatingCollection.length; j++) {
-                    if (self.titles[i].userRatingCollection[j].comment != null) {
-                        count++;
+        function getNoOfComments(id) {
+            console.log('inside get number of comments method');
+          //  self.fetchAllTitles();
+            var count = 0;
+            for (var i = 0; i < self.titles.length; i++) {
+                if (self.titles[i].id == id) {
+                    for (var j = 0; j < self.titles[i].userRatingCollection.length; j++) {
+                        if (self.titles[i].userRatingCollection[j].comment != null) {
+                            count++;
+                        }
                     }
                 }
             }
+            console.log('count--- ' + count);
+            return count;
         }
-        console.log('count--- ' + count);
-        return count;
     }
+
+
 
     function titleDirective() {
         console.log('inside directive');
         var dir = {
             scope: {
-                person: '='
+                title: '=',
+                number:'='
             },
             templateUrl: 'app/views/title-directive.html'
         }

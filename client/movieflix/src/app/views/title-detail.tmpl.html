@@ -1,21 +1,24 @@
-<div class="container">
+<div class="container title-detail">
     <div class="row">
-        <div class="col-md-4 img1">
-            <img class=" img1" ng-src="{{singleTitleVm.selectedTitle.poster}}">
+        <div class="col-md-2">
+            <a target="_blank" ng-href="{{singleTitleVm.selectedTitle.imdblink}}">
+                <img class="img1" ng-src="{{singleTitleVm.selectedTitle.poster}}">
+            </a>
         </div>
-        <div class="col-md-8 box1">
+        <div class="col-md-10 ">
             <h3>{{singleTitleVm.selectedTitle.title}}</h3>
             <p>IMDB Rating: {{singleTitleVm.selectedTitle.imdbrating}}</p>
             <uib-rating ng-model="singleTitleVm.selectedTitle.imdbrating" max="10" data-readonly="true" read-only="true"
                         on-hover="hoveringOver(value)"
                         on-leave="overStar = null"
                         aria-labelledby="default-rating"></uib-rating>
+            <a target="_blank" ng-href="{{singleTitleVm.selectedTitle.imdblink}}" class="glyphicon glyphicon-link">IMDB</a>
             <p>MovieFlix Rating: {{singleTitleVm.avgRating}}</p>
             <uib-rating ng-model="singleTitleVm.avgRating" max="10" data-readonly="true" read-only="true"
                         on-hover="hoveringOver(value)"
                         on-leave="overStar = null"
                         aria-labelledby="default-rating"></uib-rating>
-            <p>Your Rating: {{singleTitleVm.avgRating}}</p>
+            <p>Your Rating: {{singleTitleVm.yourRating}}</p>
             <uib-rating ng-model="singleTitleVm.yourRating" max="10"
                         on-hover="hoveringOver(value)"
                         on-leave="overStar = null"
@@ -25,18 +28,25 @@
             <p>Plot: {{singleTitleVm.selectedTitle.plot}}</p>
         </div>
     </div>
-    <div class=" container ">
-        <textarea class="form-control custom-control" rows="3" style="resize:none"
-                  ng-model="singleTitleVm.userComment"></textarea>
-        <button class="btn btn-primary pull-left form-control" ng-click="singleTitleVm.postComment()">Comment</button>
+    <div class="container">
+        <div class="row col-md-12">
+            <textarea class="form-control custom-control comment-text" rows="3" style="resize:none"
+                      ng-model="singleTitleVm.userComment" placeholder="Comment Here..."></textarea>
+            <button class="btn btn-primary pull-left form-control" ng-click="singleTitleVm.postComment()">Comment
+            </button>
+        </div>
         <hr>
-        <div class="box all comment-box" ng-repeat="comment in singleTitleVm.selectedTitle.userRatingCollection">
-            <div ng-if="singleTitleVm.selectedTitle.userRatingCollection.length <=0">
-                No Comments
+        <div class="row col-md-12">
+            <div class="box all comment-box" ng-repeat="comment in singleTitleVm.selectedTitle.userRatingCollection">
+                <div ng-if="singleTitleVm.selectedTitle.userRatingCollection.length <=0">
+                    No Comments
+                </div>
+                <div ng-if="comment.comment!==null">
+                    <i class="glyphicon glyphicon-user comment-name">{{comment.name}}</i>
+                    <p class="text-left comment-text">{{comment.comment}}</p>
+                    <hr>
+                </div>
             </div>
-            <i class="glyphicon glyphicon-user comment-name">{{comment.name}}</i>
-            <p class="text-left">{{comment.comment}}</p>
-            <hr>
         </div>
     </div>
 </div>

@@ -38,12 +38,12 @@
         }
 
         function updateTitle(title, id) {
-            return $http.post(CONFIG.API_HOST + '/titles/admin/update/' + id, title)
+            return $http.put(CONFIG.API_HOST + '/titles/admin/update/' + id, title)
                 .then(successFn, errorFn);
         }
 
         function deleteTitle(id) {
-            return $http.post(CONFIG.API_HOST + '/titles/admin/delete/' + id)
+            return $http.delete(CONFIG.API_HOST + '/titles/admin/delete/' + id)
                 .then(successFn, errorFn);
         }
 

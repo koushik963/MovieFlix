@@ -22,8 +22,13 @@
                     <li><a ng-click="homeVm.changeSort(4)">MOVIES</a></li>
                 </ul>
             </li>
+            <li>
+                <a class="glyphicon glyphicon-refresh " ng-click="homeVm.refresh()"></a>
+            </li>
         </ul>
 
+        <ul>
+            </ul>
         <form class="navbar-form navbar-right" role="search">
             <div class="form-group">
                 <input type="text" ng-model="homeVm.searchString" class="form-control" placeholder="Search">
@@ -33,14 +38,16 @@
     <div class="shell">
 
         <div>
-            <div ng-repeat="t in homeVm.titles| limitTo:homeVm.itemsPerPage:(homeVm.currentPage - 1) * homeVm.itemsPerPage | filter:homeVm.searchString | orderBy: homeVm.sorter.by : homeVm.sorter.reverse ">
+            <div ng-repeat="t in homeVm.titles| limitTo:homeVm.itemsPerPage:(homeVm.currentPage - 1) * homeVm.itemsPerPage | filter:homeVm.searchString ">
                 <title-directive title="t" number="homeVm.getNoOfComments(t.id)"></title-directive>
             </div>
         </div>
-        <uib-pagination boundary-links="true" total-items="homeVm.totalItems" items-per-page="homeVm.itemsPerPage"
-                        ng-model="homeVm.currentPage" class="pagination-md pagin" ng-change="homeVm.onPageChange()"
-                        previous-text="&lsaquo;"
-                        next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
     </div>
-</div>
 
+</div>
+<footer>
+    <uib-pagination boundary-links="true" total-items="homeVm.totalItems" items-per-page="homeVm.itemsPerPage"
+                    ng-model="homeVm.currentPage" class="pagination-md pagin" ng-change="homeVm.onPageChange()"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+</footer>

@@ -30,6 +30,7 @@
                 .then(function (response) {
                     console.log('posted comment succesfully');
                     Notification.success('Posted Comment Succesfully!!!');
+                    self.userComment='';
                     self.fetchTitleById();
                 }, function (errResponse) {
                     console.error('error posting comment.');

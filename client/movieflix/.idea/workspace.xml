@@ -156,7 +156,6 @@
         <option value="$PROJECT_DIR$/src/app/controllers/login.controller.js" />
         <option value="$PROJECT_DIR$/src/styles/main.css" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/app/services/session.service.js" />
         <option value="$PROJECT_DIR$/src/app/services/authorization.service.js" />
@@ -181,6 +180,7 @@
         <option value="$PROJECT_DIR$/src/app/views/sign-in.tmpl.html" />
         <option value="$PROJECT_DIR$/src/styles/home.css" />
         <option value="$PROJECT_DIR$/bower.json" />
+        <option value="$PROJECT_DIR$/gulpfile.js" />
       </list>
     </option>
   </component>

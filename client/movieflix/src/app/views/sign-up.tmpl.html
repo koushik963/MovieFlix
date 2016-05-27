@@ -1,0 +1,62 @@
+<div class="container" >
+    <div class="panel panel-default container">
+        <div class="panel-heading"><span class="lead">Sign Up</span></div>
+        <div class="container">
+            <form ng-submit="userVm.signUp()" name="myForm" class="form-horizontal form-signup">
+                <input type="hidden" ng-model="userVm.user.id" />
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable">First Name</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="userVm.user.firstname" name="firstname" class="username form-control input-sm" placeholder="Enter your first name" required />
+                            <div class="has-error" ng-show="myForm.$dirty">
+                                <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable">Last Name</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="userVm.user.lastname" name="lastname" class="form-control input-sm" placeholder="Enter your last name" required/>
+                            <div class="has-error" ng-show="myForm.$dirty">
+                                <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable">Email</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="userVm.user.email" class="form-control input-sm" placeholder="Enter your email" required/>
+                            <div class="has-error" ng-show="myForm.$dirty">
+                                <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable">Password</label>
+                        <div class="col-md-7">
+                            <input type="password" ng-model="userVm.user.password" class="form-control input-sm"  required/>
+                            <div class="has-error" ng-show="myForm.$dirty">
+                                <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-actions floatRight col-md-3">
+                        <input type="submit"  value="Sign Up!!!" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
+                        <button type="button" ng-click="userVm.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset Form</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

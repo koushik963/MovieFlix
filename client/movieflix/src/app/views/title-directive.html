@@ -1,0 +1,18 @@
+<div class="image">
+    <h4 id="title">{{title.title}}</h4>
+    <a ng-href="#/user/{{title.id}}" class="thumbnail title-image">
+        <img class="image" ng-src="{{title.poster}}">
+    </a>
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>IMDB Rating</td>
+            <td>{{title.imdbrating}}&nbsp;<i class="glyphicon glyphicon-star"></i></td>
+        </tr>
+        <tr>
+            <td>Comments</td>
+            <td>{{number}} &nbsp;<i class="glyphicon glyphicon-tag col"></i></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="movieflix">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>AngularJS Plunker</title>
+    <!-- bower:css -->
+    <!-- endinject -->
+
+    <!-- vendor:css -->
+    <!-- endinject -->
+
+    <!-- inject:css -->
+    <!-- endinject -->
+
+    <!-- app:css -->
+    <!-- endinject -->
+</head>
+
+<body>
+<header>
+    <div class="container">
+        <div ng-if="authenticated" ng-include="'app/views/navigation-bar.tmpl.html'"></div>
+    </div>
+</header>
+<section ng-view>
+
+
+</section>
+<footer>
+    &copy; Koushik, Inc.
+</footer>
+
+<!-- bower:js -->
+<!-- endinject -->
+
+<!-- vendor:js -->
+<!-- endinject -->
+
+<!-- inject:js -->
+<!-- endinject -->
+
+<!-- app:js -->
+<!-- endinject -->
+
+</body>
+
+</html>

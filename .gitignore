@@ -1,0 +1,6 @@
+.idea/
+.metadata/
+.settings/
+.bower_components/
+.node_modules/
+.server/movieflix/target
